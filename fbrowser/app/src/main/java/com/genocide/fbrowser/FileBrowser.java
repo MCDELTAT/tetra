@@ -1,15 +1,32 @@
 package com.genocide.fbrowser;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.opencsv.CSVReader;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class FileBrowser extends AppCompatActivity {
     Button buttonOpenFileButton;
-
+    String path;
     static final int CUSTOM_DIALOG_ID = 0;
 
     @Override
@@ -35,7 +52,6 @@ public class FileBrowser extends AppCompatActivity {
 
         //intent for Samsung file manager
         Intent sIntent = new Intent("com.sec.android.app.myfiles.PICK_DATA");
-        // if you want any file type, you can skip next line
         sIntent.putExtra("CONTENT_TYPE", "*/*");
         sIntent.addCategory(Intent.CATEGORY_DEFAULT);
 
@@ -52,8 +68,10 @@ public class FileBrowser extends AppCompatActivity {
             startActivityForResult(chooserIntent, CUSTOM_DIALOG_ID);
 
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(getApplicationContext(), "No suitable File Manager was found.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "No File Manager found.", Toast.LENGTH_SHORT).show();
         }
+
+
     }
 
     @Override
@@ -61,11 +79,39 @@ public class FileBrowser extends AppCompatActivity {
         switch (requestCode) {
             case CUSTOM_DIALOG_ID:
                 if (resultCode == RESULT_OK) {
-                    String FilePath = data.getData().getPath();
-                    Toast.makeText(FileBrowser.this, FilePath, Toast.LENGTH_LONG).show();
-                }
+                    path = data.getData().getPath();
+                    String loc = path.toString();
+                    Toast.makeText(FileBrowser.this,loc,Toast.LENGTH_LONG).show();
+                    BufferedReader br = null;
+                    String line = "";
+                    String cvsSplitBy = ",";
+                    try{
+                        br = new BufferedReader(new FileReader(loc));
+                        while((line = br.readLine()) != null) {
+                            String[] contig = line.split(cvsSplitBy);
+                            System.out.println("contig" +contig[1]);
+                           Toast.makeText(FileBrowser.this,contig[1],Toast.LENGTH_SHORT).show();
+                        }
+                        }catch(FileNotFoundException e) {
+                            e.printStackTrace();
+                    } catch (IOException e){
+                        e.printStackTrace();
+                    }finally{
+                        if (br != null){
+                            try {
+                                br.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                                   }
                 break;
 
         }
+
     }
+
+
 }
+
