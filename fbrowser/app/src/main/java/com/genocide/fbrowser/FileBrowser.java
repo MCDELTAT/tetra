@@ -81,17 +81,31 @@ public class FileBrowser extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     path = data.getData().getPath();
                     String loc = path.toString();
+
                     Toast.makeText(FileBrowser.this,loc,Toast.LENGTH_LONG).show();
                     BufferedReader br = null;
                     String line = "";
                     String cvsSplitBy = ",";
+
                     try{
+
                         br = new BufferedReader(new FileReader(loc));
+
+                        DataManager dataFile = new DataManager(br);
+                        dataFile.dataParser();
+
+                    /*
                         while((line = br.readLine()) != null) {
                             String[] contig = line.split(cvsSplitBy);
                             System.out.println("contig" +contig[1]);
                            Toast.makeText(FileBrowser.this,contig[1],Toast.LENGTH_SHORT).show();
                         }
+
+
+                    */
+
+
+                        //System.out.println(dataFile.dim1Max);
                         }catch(FileNotFoundException e) {
                             e.printStackTrace();
                     } catch (IOException e){
@@ -105,7 +119,9 @@ public class FileBrowser extends AppCompatActivity {
                             }
                         }
                     }
-                                   }
+
+
+                }
                 break;
 
         }
