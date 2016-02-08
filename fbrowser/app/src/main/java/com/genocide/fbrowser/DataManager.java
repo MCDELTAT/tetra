@@ -1,28 +1,12 @@
 package com.genocide.fbrowser;
 
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
+import java.util.*; // for ArrayList
+import java.io.*;
 
 
-/**
- * Created by Justin on 2/7/2016.
- */
+//in the DataManger.java file
 public class DataManager {
-    // min and max for each dim to be calculated
-    // everytime i push data to an object
-    private BufferedReader bufferedObject;
-    BufferedReader br = null;
-
-
+    private String csvLocation;
 
     public double dim1Max;
     public double dim1Min;
@@ -35,16 +19,19 @@ public class DataManager {
 
     public ArrayList<DataObject> dataArray = new ArrayList<DataObject>();
 
-    public DataManager(BufferedReader fileLocation) {
-        BufferedReader bufferedObject = fileLocation;
-        // could move this to runCvsParser
+    public DataManager(String fileLocation) {
+        csvLocation = fileLocation;
     }
 
     public void dataParser() {
         String line = null;
 
         try {
-            BufferedReader bufferedReader = bufferedObject;
+            // FileReader reads text files in the default encoding.
+            FileReader fileReader = new FileReader(csvLocation);
+
+            // Always wrap FileReader in BufferedReader.
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             // Skips the first line
             bufferedReader.readLine();
@@ -66,7 +53,7 @@ public class DataManager {
 
                 dataArray.add(particle);
 
-                // check for min and max
+                // check for min and max for each dim
                 if(dim1Max < dim1){
                     dim1Max = dim1;
                 }
@@ -95,13 +82,11 @@ public class DataManager {
         }
 
         catch(FileNotFoundException ex) {
-            System.out.println("Unable to open file '" + bufferedObject + "'");
+            System.out.println("Unable to open file '" + csvLocation + "'");
         }
         catch(IOException ex) {
-            System.out.println("Error reading file '" + bufferedObject + "'");
+            System.out.println("Error reading file '" + csvLocation + "'");
         }
     }
 }
-
-
 

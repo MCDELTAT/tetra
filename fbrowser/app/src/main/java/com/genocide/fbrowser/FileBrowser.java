@@ -70,8 +70,6 @@ public class FileBrowser extends AppCompatActivity {
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(getApplicationContext(), "No File Manager found.", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     @Override
@@ -82,52 +80,18 @@ public class FileBrowser extends AppCompatActivity {
                     path = data.getData().getPath();
                     String loc = path.toString();
 
-                    Toast.makeText(FileBrowser.this,loc,Toast.LENGTH_LONG).show();
-                    BufferedReader br = null;
-                    String line = "";
-                    String cvsSplitBy = ",";
+                    Toast.makeText(FileBrowser.this, loc, Toast.LENGTH_LONG).show();
 
-                    try{
-
-                        br = new BufferedReader(new FileReader(loc));
-
-                        DataManager dataFile = new DataManager(br);
-                        dataFile.dataParser();
-
-                    /*
-                        while((line = br.readLine()) != null) {
-                            String[] contig = line.split(cvsSplitBy);
-                            System.out.println("contig" +contig[1]);
-                           Toast.makeText(FileBrowser.this,contig[1],Toast.LENGTH_SHORT).show();
-                        }
-
-
-                    */
-
-
-                        //System.out.println(dataFile.dim1Max);
-                        }catch(FileNotFoundException e) {
-                            e.printStackTrace();
-                    } catch (IOException e){
-                        e.printStackTrace();
-                    }finally{
-                        if (br != null){
-                            try {
-                                br.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
+                    DataManager dataFile = new DataManager(loc);
+                    // I pass directory location to my class above and parse it using the command
+                    // below
+                    dataFile.dataParser();
 
                 }
-                break;
-
         }
-
     }
-
-
 }
+
+
+
 
