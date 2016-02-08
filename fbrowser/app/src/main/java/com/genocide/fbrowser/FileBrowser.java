@@ -1,5 +1,6 @@
 package com.genocide.fbrowser;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -29,11 +30,13 @@ public class FileBrowser extends AppCompatActivity {
     String path;
     static final int CUSTOM_DIALOG_ID = 0;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_file_browser);
-        //implemtes button
+        //implements button
         buttonOpenFileButton = (Button) findViewById(R.id.openFileButton);
         buttonOpenFileButton.setOnClickListener(new View.OnClickListener() {
 
@@ -78,6 +81,7 @@ public class FileBrowser extends AppCompatActivity {
             case CUSTOM_DIALOG_ID:
                 if (resultCode == RESULT_OK) {
                     path = data.getData().getPath();
+
                     String loc = path.toString();
 
                     Toast.makeText(FileBrowser.this, loc, Toast.LENGTH_LONG).show();
@@ -87,9 +91,11 @@ public class FileBrowser extends AppCompatActivity {
                     // below
                     dataFile.dataParser();
 
+
                 }
         }
     }
+
 }
 
 
