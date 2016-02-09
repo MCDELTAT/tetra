@@ -20,6 +20,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,43 +75,45 @@ public class FileBrowser extends AppCompatActivity {
 
     }
 
-    @Override
+/*    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case CUSTOM_DIALOG_ID:
                 if (resultCode == RESULT_OK) {
                     path = data.getData().getPath();
                     String loc = path.toString();
-                    Toast.makeText(FileBrowser.this,loc,Toast.LENGTH_LONG).show();
-                    BufferedReader br = null;
-                    String line = "";
-                    String cvsSplitBy = ",";
-                    try{
-                        br = new BufferedReader(new FileReader(loc));
-                        while((line = br.readLine()) != null) {
-                            String[] contig = line.split(cvsSplitBy);
-                            System.out.println("contig" +contig[1]);
-                           Toast.makeText(FileBrowser.this,contig[1],Toast.LENGTH_SHORT).show();
-                        }
-                        }catch(FileNotFoundException e) {
-                            e.printStackTrace();
-                    } catch (IOException e){
-                        e.printStackTrace();
-                    }finally{
-                        if (br != null){
-                            try {
-                                br.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                                   }
-                break;
 
+                    //Toast.makeText(FileBrowser.this, loc, Toast.LENGTH_LONG).show();
+
+                    DataManager dataFile = new DataManager(loc);
+                    // I pass directory location to my class above and parse it using the command
+                    // below
+                    dataFile.dataParser();
+                    Toast.makeText(FileBrowser.this,"test:"+dataFile.dim1Max,Toast.LENGTH_LONG);
+
+                }
         }
+    }
+}
+
+*/
+
+
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    switch (requestCode) {
+        case CUSTOM_DIALOG_ID:
+            if (resultCode == RESULT_OK) {
+                path = data.getData().getPath();
+                String loc = path.toString();
+                DataManager dataFile = new DataManager();
+                dataFile.dataParser(loc);
+                }
+
+            break;
 
     }
+}
 
 
 }
