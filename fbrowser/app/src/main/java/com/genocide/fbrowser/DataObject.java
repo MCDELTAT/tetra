@@ -29,7 +29,4 @@ public class DataObject {
         dim3 = dataDim3;
 
     }
-
-
-
 }
