@@ -18,30 +18,56 @@ public class DataManager {
     public double dim3Max;
     public double dim3Min;
     public ArrayList<DataObject> dataArray = new ArrayList();
+    // ArrayList each data object is added to
 
     public void dataParser(String loc) {
+        // sets file location to csvLocation
+        csvLocation = loc;
+        System.out.println(csvLocation);
         Log.d("indataParser", "dataParser: ");
-
         BufferedReader br = null;
         String line = "";
-
         try {
+            // please comment if uncommented below.
+            //loc = "/sdcard/Download/GBSwater_with_Aqui_and_Cren_for_AppTeam_160126.csv"; // testing
+            // comment this above after, used for quick testing instead above having to go to
+            // the specific directory every time
             br = new BufferedReader(new FileReader(loc));
             line = br.readLine();
             while ((line = br.readLine()) != null) {
+                // each data point is read line by line
+                String[] splitLine = line.split(",");
+                // input is received as a string so I convert for later uses
+                int size = Integer.parseInt(splitLine[2]);
+                double dim1 = Double.parseDouble(splitLine[3]);
+                double dim2 = Double.parseDouble(splitLine[4]);
+                double dim3 = Double.parseDouble(splitLine[5]);
 
-                String[] line2 = line.split(",");
+                // DataObject inputs as follows (contig, organism, size, dim1, dim2, dim3)
+                DataObject particle = new DataObject(splitLine[0], splitLine[1], size, dim1, dim2, dim3);
 
-                int size = Integer.parseInt(line2[2]);
-                double dim1 = Double.parseDouble(line2[3]);
-                double dim2 = Double.parseDouble(line2[4]);
-                double dim3 = Double.parseDouble(line2[5]);
-
-                DataObject particle = new DataObject(line2[0], line2[1], size, dim1, dim2, dim3);
-
-                // pushes object with line data into an array.
+                // if first run through for min max
+                if(dataArray.size() == 0) {
+                    dim1Max = dim1;
+                    dim1Min = dim1;
+                    dim2Max = dim2;
+                    dim2Min = dim2;
+                    dim3Max = dim3;
+                    dim3Min = dim3;
+                }
+                // pushes object, with line data split into, an arraylist.
                 dataArray.add(particle);
-                // checks for dim highs and lows and updates
+
+                // visualizing min max
+                // comment out when opengl is up and running
+                System.out.println("dim1max: "+ dim1Max);
+                System.out.println("dim2max: "+ dim2Max);
+                System.out.println("dim3max: "+ dim3Max);
+                System.out.println("dim1min: "+ dim1Min);
+                System.out.println("dim2min: "+ dim2Min);
+                System.out.println("dim3min: "+ dim3Min);
+
+                // checks for dim min max every line
                 if (dim1Max < dim1) {
                     dim1Max = dim1;
                 }
@@ -76,11 +102,5 @@ public class DataManager {
                 }
             }
         }
-        System.out.println("dim1max: "+ dim1Max);
-        System.out.println("dim2max: "+ dim2Max);
-        System.out.println("dim3max: "+ dim3Max);
-        System.out.println("dim1min: "+ dim1Min);
-        System.out.println("dim2min: "+ dim2Min);
-        System.out.println("dim3min: "+ dim3Min);
     }
 }

@@ -79,21 +79,32 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             if (resultCode == RESULT_OK) {
                 path = data.getData().getPath();
                 String loc = path.toString();
+
+                // DataManager class to open and parse csv
                 DataManager dataFile = new DataManager();
+
+                // passing on location to parse data
                 dataFile.dataParser(loc);
-                System.out.println("test.csv");
 
-                System.out.println("Number of data:" + dataFile.dataArray.size());
-                System.out.println("Data Point 1 Below");
+                // test file output
+                System.out.println("File Location: " + loc);
 
-                //examples how to access data
-                System.out.println(dataFile.dataArray.get(1).contig);
-                System.out.println(dataFile.dataArray.get(1).organism);
-                System.out.println(dataFile.dataArray.get(1).size);
-                System.out.println(dataFile.dataArray.get(1).dim1);
-                System.out.println(dataFile.dataArray.get(1).dim2);
-                System.out.println(dataFile.dataArray.get(1).dim3);
+                System.out.println("Number of data points:" + dataFile.dataArray.size());
+
+                System.out.println("Data Point: ");
+
+                // examples how to access data of an object, I print all the data points here
+                // I'll leave this here for tests and disable when prototype is ready
+                for(int i = 0; i < dataFile.dataArray.size(); i++){
+                    System.out.println("Data Point #: " + Integer.toString(i + 1));
+                    System.out.println(dataFile.dataArray.get(i).contig);
+                    System.out.println(dataFile.dataArray.get(i).organism);
+                    System.out.println(dataFile.dataArray.get(i).size);
+                    System.out.println(dataFile.dataArray.get(i).dim1);
+                    System.out.println(dataFile.dataArray.get(i).dim2);
+                    System.out.println(dataFile.dataArray.get(i).dim3);
                 }
+            }
             break;
     }
 }
