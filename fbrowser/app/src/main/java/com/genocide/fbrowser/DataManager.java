@@ -22,7 +22,6 @@ public class DataManager {
     public void dataParser(String loc) {
         Log.d("indataParser", "dataParser: ");
 
-        //Toast.makeText(FileBrowser.this, loc, Toast.LENGTH_LONG).show();
         BufferedReader br = null;
         String line = "";
 
@@ -30,8 +29,6 @@ public class DataManager {
             br = new BufferedReader(new FileReader(loc));
             line = br.readLine();
             while ((line = br.readLine()) != null) {
-
-                //System.out.println(line);
 
                 String[] line2 = line.split(",");
 
@@ -42,10 +39,9 @@ public class DataManager {
 
                 DataObject particle = new DataObject(line2[0], line2[1], size, dim1, dim2, dim3);
 
+                // pushes object with line data into an array.
                 dataArray.add(particle);
-                //System.out.println("contig" + line[1]);
-
-
+                // checks for dim highs and lows and updates
                 if (dim1Max < dim1) {
                     dim1Max = dim1;
                 }
