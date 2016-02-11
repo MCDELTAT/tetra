@@ -21,6 +21,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,7 +76,7 @@ public class FileBrowser extends AppCompatActivity {
         }
     }
 
-    @Override
+/*    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case CUSTOM_DIALOG_ID:
@@ -84,13 +85,45 @@ public class FileBrowser extends AppCompatActivity {
 
                     String loc = path.toString();
 
+<<<<<<< HEAD
                     Toast.makeText(FileBrowser.this, loc, Toast.LENGTH_LONG).show();
+=======
+                    //Toast.makeText(FileBrowser.this, loc, Toast.LENGTH_LONG).show();
+>>>>>>> refs/remotes/origin/moseleyBranch
 
                     DataManager dataFile = new DataManager(loc);
                     // I pass directory location to my class above and parse it using the command
                     // below
                     dataFile.dataParser();
+<<<<<<< HEAD
 
+=======
+                    Toast.makeText(FileBrowser.this,"test:"+dataFile.dim1Max,Toast.LENGTH_LONG);
+
+                }
+        }
+    }
+}
+
+*/
+
+
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    switch (requestCode) {
+        case CUSTOM_DIALOG_ID:
+            if (resultCode == RESULT_OK) {
+                path = data.getData().getPath();
+                String loc = path.toString();
+                DataManager dataFile = new DataManager();
+                dataFile.dataParser(loc);
+                }
+
+            break;
+
+    }
+}
+>>>>>>> refs/remotes/origin/moseleyBranch
 
                 }
         }
