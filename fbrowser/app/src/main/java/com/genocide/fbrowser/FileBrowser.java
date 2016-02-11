@@ -108,6 +108,16 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
                 String loc = path.toString();
                 DataManager dataFile = new DataManager();
                 dataFile.dataParser(loc);
+                System.out.println("test.csv");
+
+                System.out.println("Number of data:" + dataFile.dataArray.size());
+                System.out.println("Data Point 1 Below");
+                System.out.println(dataFile.dataArray.get(1).contig);
+                System.out.println(dataFile.dataArray.get(1).organism);
+                System.out.println(dataFile.dataArray.get(1).size);
+                System.out.println(dataFile.dataArray.get(1).dim1);
+                System.out.println(dataFile.dataArray.get(1).dim2);
+                System.out.println(dataFile.dataArray.get(1).dim3);
 
 
 

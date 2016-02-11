@@ -31,7 +31,7 @@ public class DataManager {
             line = br.readLine();
             while ((line = br.readLine()) != null) {
 
-                System.out.println(line);
+                //System.out.println(line);
 
                 String[] line2 = line.split(",");
 
@@ -39,6 +39,7 @@ public class DataManager {
                 double dim1 = Double.parseDouble(line2[3]);
                 double dim2 = Double.parseDouble(line2[4]);
                 double dim3 = Double.parseDouble(line2[5]);
+
                 DataObject particle = new DataObject(line2[0], line2[1], size, dim1, dim2, dim3);
 
                 dataArray.add(particle);
