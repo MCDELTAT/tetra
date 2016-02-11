@@ -24,7 +24,6 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class FileBrowser extends AppCompatActivity {
     Button buttonOpenFileButton;
     String path;
@@ -71,33 +70,7 @@ public class FileBrowser extends AppCompatActivity {
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(getApplicationContext(), "No File Manager found.", Toast.LENGTH_SHORT).show();
         }
-
-
     }
-
-/*    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case CUSTOM_DIALOG_ID:
-                if (resultCode == RESULT_OK) {
-                    path = data.getData().getPath();
-                    String loc = path.toString();
-
-                    //Toast.makeText(FileBrowser.this, loc, Toast.LENGTH_LONG).show();
-
-                    DataManager dataFile = new DataManager(loc);
-                    // I pass directory location to my class above and parse it using the command
-                    // below
-                    dataFile.dataParser();
-                    Toast.makeText(FileBrowser.this,"test:"+dataFile.dim1Max,Toast.LENGTH_LONG);
-
-                }
-        }
-    }
-}
-
-*/
-
 
 @Override
 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -112,22 +85,18 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
                 System.out.println("Number of data:" + dataFile.dataArray.size());
                 System.out.println("Data Point 1 Below");
+
+                //examples how to access data
                 System.out.println(dataFile.dataArray.get(1).contig);
                 System.out.println(dataFile.dataArray.get(1).organism);
                 System.out.println(dataFile.dataArray.get(1).size);
                 System.out.println(dataFile.dataArray.get(1).dim1);
                 System.out.println(dataFile.dataArray.get(1).dim2);
                 System.out.println(dataFile.dataArray.get(1).dim3);
-
-
-
                 }
-
             break;
-
     }
 }
-
 
 }
 
