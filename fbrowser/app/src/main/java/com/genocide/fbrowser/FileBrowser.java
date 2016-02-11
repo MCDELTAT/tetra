@@ -1,6 +1,5 @@
 package com.genocide.fbrowser;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -31,13 +30,11 @@ public class FileBrowser extends AppCompatActivity {
     String path;
     static final int CUSTOM_DIALOG_ID = 0;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_file_browser);
-        //implements button
+        //implemtes button
         buttonOpenFileButton = (Button) findViewById(R.id.openFileButton);
         buttonOpenFileButton.setOnClickListener(new View.OnClickListener() {
 
@@ -74,6 +71,8 @@ public class FileBrowser extends AppCompatActivity {
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(getApplicationContext(), "No File Manager found.", Toast.LENGTH_SHORT).show();
         }
+
+
     }
 
 /*    @Override
@@ -82,22 +81,14 @@ public class FileBrowser extends AppCompatActivity {
             case CUSTOM_DIALOG_ID:
                 if (resultCode == RESULT_OK) {
                     path = data.getData().getPath();
-
                     String loc = path.toString();
 
-<<<<<<< HEAD
-                    Toast.makeText(FileBrowser.this, loc, Toast.LENGTH_LONG).show();
-=======
                     //Toast.makeText(FileBrowser.this, loc, Toast.LENGTH_LONG).show();
->>>>>>> refs/remotes/origin/moseleyBranch
 
                     DataManager dataFile = new DataManager(loc);
                     // I pass directory location to my class above and parse it using the command
                     // below
                     dataFile.dataParser();
-<<<<<<< HEAD
-
-=======
                     Toast.makeText(FileBrowser.this,"test:"+dataFile.dim1Max,Toast.LENGTH_LONG);
 
                 }
@@ -123,14 +114,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
     }
 }
->>>>>>> refs/remotes/origin/moseleyBranch
 
-                }
-        }
-    }
 
 }
-
-
-
 
