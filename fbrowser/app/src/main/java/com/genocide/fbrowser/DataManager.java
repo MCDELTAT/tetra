@@ -18,9 +18,6 @@ public class DataManager {
     public double dim3Max;
     public double dim3Min;
     public ArrayList<DataObject> dataArray = new ArrayList();
-    //public DataManager(ArrayList<String> list) {
-        //csvLocation = fileLocation;
-    //}
 
     public void dataParser(String loc) {
         Log.d("indataParser", "dataParser: ");
@@ -28,37 +25,40 @@ public class DataManager {
         //Toast.makeText(FileBrowser.this, loc, Toast.LENGTH_LONG).show();
         BufferedReader br = null;
         String line = "";
-        //ArrayList<String> contig = new ArrayList<>();
+
         try {
             br = new BufferedReader(new FileReader(loc));
             line = br.readLine();
             while ((line = br.readLine()) != null) {
-                //contig.add(line);
 
                 System.out.println(line);
-                // System.out.println("contig" + contig[1]);
-                //Toast.makeText(FileBrowser.this, contig[3], Toast.LENGTH_SHORT).show();
+
                 String[] line2 = line.split(",");
-                //line.split(",");
+
                 int size = Integer.parseInt(line2[2]);
                 double dim1 = Double.parseDouble(line2[3]);
                 double dim2 = Double.parseDouble(line2[4]);
                 double dim3 = Double.parseDouble(line2[5]);
-                DataObject particle = new DataObject(line2[0], line2[2], size, dim1, dim2, dim3);
+                DataObject particle = new DataObject(line2[0], line2[1], size, dim1, dim2, dim3);
+
                 dataArray.add(particle);
                 //System.out.println("contig" + line[1]);
+
+
                 if (dim1Max < dim1) {
                     dim1Max = dim1;
                 }
                 if (dim1Min > dim1) {
                     dim1Min = dim1;
                 }
+
                 if (dim2Max < dim2) {
                     dim2Max = dim2;
                 }
                 if (dim2Min > dim2) {
                     dim2Min = dim2;
                 }
+
                 if (dim3Max < dim3) {
                     dim3Max = dim3;
                 }

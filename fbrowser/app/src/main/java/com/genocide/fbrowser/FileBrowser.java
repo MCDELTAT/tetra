@@ -108,6 +108,9 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
                 String loc = path.toString();
                 DataManager dataFile = new DataManager();
                 dataFile.dataParser(loc);
+
+
+
                 }
 
             break;
