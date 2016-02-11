@@ -1,6 +1,8 @@
 package com.genocide.fbrowser;
+//package com.juscam.parse;
 
 // DataObject.java
+
 public class DataObject {
     public String contig;
 
@@ -29,4 +31,7 @@ public class DataObject {
         dim3 = dataDim3;
 
     }
+
+
+
 }
