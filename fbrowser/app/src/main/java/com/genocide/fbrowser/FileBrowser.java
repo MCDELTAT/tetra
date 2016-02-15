@@ -3,9 +3,14 @@ package com.genocide.fbrowser;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.opengl.GLES10;
+//import android.opengl.GLES20;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.app.Activity;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,16 +29,27 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
+
 public class FileBrowser extends AppCompatActivity {
+
     Button buttonOpenFileButton;
     String path;
     static final int CUSTOM_DIALOG_ID = 0;
 
+    public GLSurfaceView myGLView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_file_browser);
-        //implemtes button
+       //create new surface view and display it
+        myGLView = new MyGLSurfaceView(this);
+        setContentView(myGLView);
+        Log.d("HI", "Hello!\n");
+
+        /*setContentView(R.layout.content_file_browser);
+        implemtes button
         buttonOpenFileButton = (Button) findViewById(R.id.openFileButton);
         buttonOpenFileButton.setOnClickListener(new View.OnClickListener() {
 
@@ -41,8 +57,19 @@ public class FileBrowser extends AppCompatActivity {
             public void onClick(View v) {
                 openFolder(v);
             }
-        });
+        });*/
 
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        myGLView.onPause();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        myGLView.onResume();
     }
 
     public void openFolder(View view) {
@@ -72,42 +99,40 @@ public class FileBrowser extends AppCompatActivity {
         }
     }
 
-@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    switch (requestCode) {
-        case CUSTOM_DIALOG_ID:
-            if (resultCode == RESULT_OK) {
-                path = data.getData().getPath();
-                String loc = path.toString();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case CUSTOM_DIALOG_ID:
+                if (resultCode == RESULT_OK) {
+                    path = data.getData().getPath();
+                    String loc = path.toString();
 
-                // DataManager class to open and parse csv
-                DataManager dataFile = new DataManager();
+                    // DataManager class to open and parse csv
+                    DataManager dataFile = new DataManager();
 
-                // passing on location to parse data
-                dataFile.dataParser(loc);
+                    // passing on location to parse data
+                    dataFile.dataParser(loc);
 
-                // test file output
-                System.out.println("File Location: " + loc);
+                    // test file output
+                    System.out.println("File Location: " + loc);
 
-                System.out.println("Number of data points:" + dataFile.dataArray.size());
+                    System.out.println("Number of data points:" + dataFile.dataArray.size());
 
-                System.out.println("Data Point: ");
+                     System.out.println("Data Point: ");
 
-                // examples how to access data of an object, I print all the data points here
-                // I'll leave this here for tests and disable when prototype is ready
-                for(int i = 0; i < dataFile.dataArray.size(); i++){
-                    System.out.println("Data Point #: " + Integer.toString(i + 1));
-                    System.out.println(dataFile.dataArray.get(i).contig);
-                    System.out.println(dataFile.dataArray.get(i).organism);
-                    System.out.println(dataFile.dataArray.get(i).size);
-                    System.out.println(dataFile.dataArray.get(i).dim1);
-                    System.out.println(dataFile.dataArray.get(i).dim2);
-                    System.out.println(dataFile.dataArray.get(i).dim3);
+                    // examples how to access data of an object, I print all the data points here
+                    // I'll leave this here for tests and disable when prototype is ready
+                    for(int i = 0; i < dataFile.dataArray.size(); i++){
+                        System.out.println("Data Point #: " + Integer.toString(i + 1));
+                        System.out.println(dataFile.dataArray.get(i).contig);
+                        System.out.println(dataFile.dataArray.get(i).organism);
+                        System.out.println(dataFile.dataArray.get(i).size);
+                        System.out.println(dataFile.dataArray.get(i).dim1);
+                        System.out.println(dataFile.dataArray.get(i).dim2);
+                        System.out.println(dataFile.dataArray.get(i).dim3);
+                    }
                 }
-            }
-            break;
+                break;
+        }
     }
 }
-
-}
-

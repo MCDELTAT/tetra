@@ -26,7 +26,7 @@ public class DataManager {
         System.out.println(csvLocation);
         Log.d("indataParser", "dataParser: ");
         BufferedReader br = null;
-        String line = "";
+        String line ;
         try {
             // please comment if uncommented below.
             //loc = "/sdcard/Download/GBSwater_with_Aqui_and_Cren_for_AppTeam_160126.csv"; // testing
