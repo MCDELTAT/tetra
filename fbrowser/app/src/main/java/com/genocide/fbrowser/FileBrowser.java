@@ -42,7 +42,6 @@ public class FileBrowser extends AppCompatActivity {
                 openFolder(v);
             }
         });
-
     }
 
     public void openFolder(View view) {
@@ -81,10 +80,10 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
                 String loc = path.toString();
 
                 // DataManager class to open and parse csv
-                DataManager dataFile = new DataManager();
+                DataManager dataFile = new DataManager(loc);
 
                 // passing on location to parse data
-                dataFile.dataParser(loc);
+                dataFile.dataParser();
 
                 // test file output
                 System.out.println("File Location: " + loc);
