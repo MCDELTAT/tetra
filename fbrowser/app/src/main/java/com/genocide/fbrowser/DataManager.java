@@ -27,7 +27,11 @@ public class DataManager {
     public void dataParser() {
         // sets file location to csvLocation
         //csvLocation = loc;
-        System.out.println(csvLocation);
+        String[] fileLoc = csvLocation.split(":");
+        String tempLoc = "/sdcard/" + fileLoc[1];
+
+        //System.out.println(csvLocation);
+
         Log.d("indataParser", "dataParser: ");
         BufferedReader br = null;
         String line = "";
@@ -36,7 +40,7 @@ public class DataManager {
             //loc = "/sdcard/Download/GBSwater_with_Aqui_and_Cren_for_AppTeam_160126.csv"; // testing
             // comment this above after, used for quick testing instead above having to go to
             // the specific directory every time
-            br = new BufferedReader(new FileReader(csvLocation));
+            br = new BufferedReader(new FileReader(tempLoc));
             line = br.readLine();
             while ((line = br.readLine()) != null) {
                 // each data point is read line by line
