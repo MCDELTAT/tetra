@@ -46,7 +46,7 @@ public class FileBrowser extends AppCompatActivity {
 
     public void openFolder(View view) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");
+        intent.setType("text/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
 
         //intent for Samsung file manager
