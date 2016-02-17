@@ -1,5 +1,5 @@
 package com.genocide.fbrowser;
-//package com.juscam.parse;
+
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,9 +20,13 @@ public class DataManager {
     public ArrayList<DataObject> dataArray = new ArrayList();
     // ArrayList each data object is added to
 
-    public void dataParser(String loc) {
-        // sets file location to csvLocation
+    public DataManager(String loc) {
         csvLocation = loc;
+    }
+
+    public void dataParser() {
+        // sets file location to csvLocation
+        //csvLocation = loc;
         System.out.println(csvLocation);
         Log.d("indataParser", "dataParser: ");
         BufferedReader br = null;
@@ -32,7 +36,7 @@ public class DataManager {
             //loc = "/sdcard/Download/GBSwater_with_Aqui_and_Cren_for_AppTeam_160126.csv"; // testing
             // comment this above after, used for quick testing instead above having to go to
             // the specific directory every time
-            br = new BufferedReader(new FileReader(loc));
+            br = new BufferedReader(new FileReader(csvLocation));
             line = br.readLine();
             while ((line = br.readLine()) != null) {
                 // each data point is read line by line
