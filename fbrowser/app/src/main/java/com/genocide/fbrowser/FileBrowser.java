@@ -51,7 +51,7 @@ public class FileBrowser extends AppCompatActivity {
 
         //intent for Samsung file manager
         Intent sIntent = new Intent("com.sec.android.app.myfiles.PICK_DATA");
-        sIntent.putExtra("CONTENT_TYPE", "*/*");
+        sIntent.putExtra("CONTENT_TYPE", "text/*");
         sIntent.addCategory(Intent.CATEGORY_DEFAULT);
 
         Intent chooserIntent;
@@ -78,7 +78,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             if (resultCode == RESULT_OK) {
                 path = data.getData().getPath();
                 String loc = path.toString();
-
+                System.out.println("LOC before passing" + loc);
                 // DataManager class to open and parse csv
                 DataManager dataFile = new DataManager(loc);
 

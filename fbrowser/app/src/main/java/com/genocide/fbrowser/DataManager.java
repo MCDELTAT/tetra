@@ -28,7 +28,16 @@ public class DataManager {
         // sets file location to csvLocation
         //csvLocation = loc;
         String[] fileLoc = csvLocation.split(":");
-        String tempLoc = "/sdcard/" + fileLoc[1];
+        String tempLoc = "";
+        System.out.println(fileLoc.length);
+        if (fileLoc.length == 2){
+            tempLoc = "/sdcard/" + fileLoc[1];
+        }
+        else {
+            tempLoc = fileLoc[0];
+        }
+
+       // System.out.println("after parsing" + tempLoc);
 
         //System.out.println(csvLocation);
 
@@ -68,12 +77,14 @@ public class DataManager {
 
                 // visualizing min max
                 // comment out when opengl is up and running
+                /*
                 System.out.println("dim1max: "+ dim1Max);
                 System.out.println("dim2max: "+ dim2Max);
                 System.out.println("dim3max: "+ dim3Max);
                 System.out.println("dim1min: "+ dim1Min);
                 System.out.println("dim2min: "+ dim2Min);
                 System.out.println("dim3min: "+ dim3Min);
+                */
 
                 // checks for dim min max every line
                 if (dim1Max < dim1) {
@@ -108,7 +119,7 @@ public class DataManager {
                 try {
                     br.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                   e.printStackTrace();
                 }
             }
         }
