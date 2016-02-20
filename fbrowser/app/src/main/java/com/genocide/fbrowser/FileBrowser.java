@@ -33,7 +33,7 @@ public class FileBrowser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_file_browser);
-        //implemtes button
+        //implements button
         buttonOpenFileButton = (Button) findViewById(R.id.openFileButton);
         buttonOpenFileButton.setOnClickListener(new View.OnClickListener() {
 
