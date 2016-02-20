@@ -18,18 +18,25 @@ public class DataManager {
     public double dim3Max;
     public double dim3Min;
     public ArrayList<DataObject> dataArray = new ArrayList();
-    // ArrayList each data object is added to
+    // ArrayList that each data object is added to
 
     public DataManager(String loc) {
         csvLocation = loc;
     }
 
+    private static int commaCount(String line) {
+        int commas = 0;
+        for(int i = 0; i < line.length(); i++) {
+            if(line.charAt(i) == ',') commas++;
+        }
+        return commas;
+    }
     public void dataParser() {
-        // sets file location to csvLocation
-        //csvLocation = loc;
+        // splits filelocation
         String[] fileLoc = csvLocation.split(":");
         String tempLoc = "";
         System.out.println(fileLoc.length);
+
         if (fileLoc.length == 2){
             tempLoc = "/sdcard/" + fileLoc[1];
         }
@@ -37,21 +44,33 @@ public class DataManager {
             tempLoc = fileLoc[0];
         }
 
-       // System.out.println("after parsing" + tempLoc);
-
-        //System.out.println(csvLocation);
-
         Log.d("indataParser", "dataParser: ");
         BufferedReader br = null;
         String line = "";
         try {
-            // please comment if uncommented below.
-            //loc = "/sdcard/Download/GBSwater_with_Aqui_and_Cren_for_AppTeam_160126.csv"; // testing
-            // comment this above after, used for quick testing instead above having to go to
-            // the specific directory every time
             br = new BufferedReader(new FileReader(tempLoc));
             line = br.readLine();
+
+
+
+
+
+
+
+
+
             while ((line = br.readLine()) != null) {
+                // line comma count function
+                int commas = commaCount(line);
+                System.out.println(line + " has " + commas + " commas!");
+                // sanity check for file object line integrity, error if 5
+                // commas not found
+                if (commas != 5) {
+                    // clears array as csv file not in valid format
+                    dataArray.clear();
+                    System.out.println("Data in wrong format");
+                    break;
+                }
                 // each data point is read line by line
                 String[] splitLine = line.split(",");
                 // input is received as a string so I convert for later uses
@@ -63,7 +82,7 @@ public class DataManager {
                 // DataObject inputs as follows (contig, organism, size, dim1, dim2, dim3)
                 DataObject particle = new DataObject(splitLine[0], splitLine[1], size, dim1, dim2, dim3);
 
-                // if first run through for min max
+                // if first run through for min max so it has something to compare with
                 if(dataArray.size() == 0) {
                     dim1Max = dim1;
                     dim1Min = dim1;
@@ -76,7 +95,6 @@ public class DataManager {
                 dataArray.add(particle);
 
                 // visualizing min max
-                // comment out when opengl is up and running
                 /*
                 System.out.println("dim1max: "+ dim1Max);
                 System.out.println("dim2max: "+ dim2Max);
@@ -109,9 +127,12 @@ public class DataManager {
                 }
             }
           } catch (NumberFormatException e) {
-            System.out.println("Data not in right format");
+            System.out.println("Data not in right format, please provide a valid csv file");
+            // clears array after a formatting error
+            dataArray.clear();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("Use a Samsung device using internal mem, or install a file manager");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
