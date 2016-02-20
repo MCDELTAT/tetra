@@ -5,11 +5,19 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.Viewport;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
 
 import com.opencsv.CSVReader;
 
@@ -27,6 +35,7 @@ import java.util.List;
 public class FileBrowser extends AppCompatActivity {
     Button buttonOpenFileButton;
     String path;
+    Button buttonGraph;
     static final int CUSTOM_DIALOG_ID = 0;
 
     @Override
@@ -42,6 +51,7 @@ public class FileBrowser extends AppCompatActivity {
                 openFolder(v);
             }
         });
+
     }
 
     public void openFolder(View view) {
@@ -95,6 +105,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
                 // examples how to access data of an object, I print all the data points here
                 // I'll leave this here for tests and disable when prototype is ready
                 for(int i = 0; i < dataFile.dataArray.size(); i++){
+
                     System.out.println("Data Point #: " + Integer.toString(i + 1));
                     System.out.println(dataFile.dataArray.get(i).contig);
                     System.out.println(dataFile.dataArray.get(i).organism);
@@ -103,10 +114,16 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
                     System.out.println(dataFile.dataArray.get(i).dim2);
                     System.out.println(dataFile.dataArray.get(i).dim3);
                 }
+                //send location of file to Coordinate_Systemen.java and start activity
+                Intent sendLoc = new Intent(FileBrowser.this, Coordinate_System.class);
+                sendLoc.putExtra("fileLocation", loc);
+                startActivity(sendLoc);
+
             }
             break;
     }
 }
+
 
 }
 
