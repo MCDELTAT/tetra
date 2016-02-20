@@ -1,8 +1,6 @@
 package com.genocide.fbrowser;
 
 import android.util.Log;
-import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class DataManager {
-    private String csvLocation;
+    private String mCsvLocation;
     public double dim1Max;
     public double dim1Min;
     public double dim2Max;
@@ -21,9 +19,8 @@ public class DataManager {
     // ArrayList that each data object is added to
 
     public DataManager(String loc) {
-        csvLocation = loc;
+        mCsvLocation = loc;
     }
-
     private static int commaCount(String line) {
         int commas = 0;
         for(int i = 0; i < line.length(); i++) {
@@ -33,7 +30,7 @@ public class DataManager {
     }
     public void dataParser() {
         // splits filelocation
-        String[] fileLoc = csvLocation.split(":");
+        String[] fileLoc = mCsvLocation.split(":");
         String tempLoc = "";
         System.out.println(fileLoc.length);
 
@@ -71,7 +68,8 @@ public class DataManager {
                 double dim3 = Double.parseDouble(splitLine[5]);
 
                 // DataObject inputs as follows (contig, organism, size, dim1, dim2, dim3)
-                DataObject particle = new DataObject(splitLine[0], splitLine[1], size, dim1, dim2, dim3);
+                DataObject particle = new DataObject(splitLine[0], splitLine[1], size, dim1,
+                        dim2, dim3);
 
                 // if first run through for min max so it has something to compare with
                 if(dataArray.size() == 0) {
@@ -84,7 +82,6 @@ public class DataManager {
                 }
                 // pushes object, with line data split into, an arraylist.
                 dataArray.add(particle);
-
                 // visualizing min max
                 /*
                 System.out.println("dim1max: "+ dim1Max);
@@ -94,7 +91,6 @@ public class DataManager {
                 System.out.println("dim2min: "+ dim2Min);
                 System.out.println("dim3min: "+ dim3Min);
                 */
-
                 // checks for dim min max every line
                 if (dim1Max < dim1) {
                     dim1Max = dim1;
@@ -123,7 +119,7 @@ public class DataManager {
             dataArray.clear();
         } catch (FileNotFoundException e) {
             //e.printStackTrace();
-            System.out.println("Use a Samsung device using internal mem, or install a file manager");
+            System.out.println("Use a Samsung device using internal mem, or install a fm");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
