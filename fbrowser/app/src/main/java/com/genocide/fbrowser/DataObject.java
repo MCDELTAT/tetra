@@ -9,7 +9,8 @@ public class DataObject {
     public double dim2;
     public double dim3;
 
-    public DataObject(String dataContig, String dataOrganism, int dataSize, double dataDim1, double dataDim2, double dataDim3) {
+    public DataObject(String dataContig, String dataOrganism, int dataSize, double dataDim1,
+                      double dataDim2, double dataDim3) {
         contig = dataContig;
         organism = dataOrganism;
         size = dataSize;
