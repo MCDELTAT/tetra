@@ -43,7 +43,6 @@ public class DataManager {
         else {
             tempLoc = fileLoc[0];
         }
-
         Log.d("indataParser", "dataParser: ");
         BufferedReader br = null;
         String line = "";
