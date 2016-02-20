@@ -33,7 +33,7 @@ public class FileBrowser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_file_browser);
-        //implemtes button
+        //implements button
         buttonOpenFileButton = (Button) findViewById(R.id.openFileButton);
         buttonOpenFileButton.setOnClickListener(new View.OnClickListener() {
 
@@ -51,7 +51,7 @@ public class FileBrowser extends AppCompatActivity {
 
         //intent for Samsung file manager
         Intent sIntent = new Intent("com.sec.android.app.myfiles.PICK_DATA");
-        sIntent.putExtra("CONTENT_TYPE", "*/*");
+        sIntent.putExtra("CONTENT_TYPE", "text/*");
         sIntent.addCategory(Intent.CATEGORY_DEFAULT);
 
         Intent chooserIntent;
@@ -71,42 +71,36 @@ public class FileBrowser extends AppCompatActivity {
         }
     }
 
-@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    switch (requestCode) {
-        case CUSTOM_DIALOG_ID:
-            if (resultCode == RESULT_OK) {
-                path = data.getData().getPath();
-                String loc = path.toString();
-
-                // DataManager class to open and parse csv
-                DataManager dataFile = new DataManager(loc);
-
-                // passing on location to parse data
-                dataFile.dataParser();
-
-                // test file output
-                System.out.println("File Location: " + loc);
-
-                System.out.println("Number of data points:" + dataFile.dataArray.size());
-
-                System.out.println("Data Point: ");
-
-                // examples how to access data of an object, I print all the data points here
-                // I'll leave this here for tests and disable when prototype is ready
-                for(int i = 0; i < dataFile.dataArray.size(); i++){
-                    System.out.println("Data Point #: " + Integer.toString(i + 1));
-                    System.out.println(dataFile.dataArray.get(i).contig);
-                    System.out.println(dataFile.dataArray.get(i).organism);
-                    System.out.println(dataFile.dataArray.get(i).size);
-                    System.out.println(dataFile.dataArray.get(i).dim1);
-                    System.out.println(dataFile.dataArray.get(i).dim2);
-                    System.out.println(dataFile.dataArray.get(i).dim3);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case CUSTOM_DIALOG_ID:
+                if (resultCode == RESULT_OK) {
+                    path = data.getData().getPath();
+                    String loc = path.toString();
+                    // DataManager class to open and parse csv
+                    DataManager dataFile = new DataManager(loc);
+                    // passing on location to parse data
+                    dataFile.dataParser();
+                    // debug data
+                    System.out.println("Number of data points:" + dataFile.dataArray.size());
+                    // examples how to access data of an object, I print all the data points here
+                    // I'll leave this here for tests and disable when prototype is ready
+                    // should be empty if error in file. Debug data.
+                    /*
+                    for(int i = 0; i < dataFile.dataArray.size(); i++){
+                        System.out.println("Data Point #: " + Integer.toString(i + 1));
+                        System.out.println(dataFile.dataArray.get(i).contig);
+                        System.out.println(dataFile.dataArray.get(i).organism);
+                        System.out.println(dataFile.dataArray.get(i).size);
+                        System.out.println(dataFile.dataArray.get(i).dim1);
+                        System.out.println(dataFile.dataArray.get(i).dim2);
+                        System.out.println(dataFile.dataArray.get(i).dim3);
+                    }
+                    */
                 }
-            }
-            break;
+                break;
+        }
     }
-}
-
 }
 
