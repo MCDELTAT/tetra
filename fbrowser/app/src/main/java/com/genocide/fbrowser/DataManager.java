@@ -51,14 +51,6 @@ public class DataManager {
             br = new BufferedReader(new FileReader(tempLoc));
             line = br.readLine();
 
-
-
-
-
-
-
-
-
             while ((line = br.readLine()) != null) {
                 // line comma count function
                 int commas = commaCount(line);
