@@ -18,9 +18,7 @@ public class DataManager {
     public ArrayList<DataObject> dataArray = new ArrayList();
     // ArrayList that each data object is added to
 
-    public DataManager(String loc) {
-        mCsvLocation = loc;
-    }
+
     private static int commaCount(String line) {
         int commas = 0;
         for(int i = 0; i < line.length(); i++) {
@@ -28,7 +26,10 @@ public class DataManager {
         }
         return commas;
     }
-    public void dataParser() {
+
+    public void dataParser(String loc) {
+        mCsvLocation = loc;
+
         // splits filelocation
         String[] fileLoc = mCsvLocation.split(":");
         String tempLoc = "";
@@ -50,7 +51,9 @@ public class DataManager {
             while ((line = br.readLine()) != null) {
                 // line comma count function
                 int commas = commaCount(line);
-                System.out.println(line + " has " + commas + " commas!");
+
+                //System.out.println(line + " has " + commas + " commas!");
+
                 // sanity check for file object line integrity, error if 5
                 // commas not found
                 if (commas != 5) {
@@ -113,7 +116,8 @@ public class DataManager {
                     dim3Min = dim3;
                 }
             }
-          } catch (NumberFormatException e) {
+
+        } catch (NumberFormatException e) {
             System.out.println("Data not in right format, please provide a valid csv file");
             // clears array after a formatting error
             dataArray.clear();
