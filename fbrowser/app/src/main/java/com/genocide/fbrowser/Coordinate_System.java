@@ -1,17 +1,24 @@
 package com.genocide.fbrowser;
 
+
 import android.app.Activity;
 import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import android.view.View;
+
+
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.LayoutInflater;
 import android.os.Handler;
+
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
@@ -21,82 +28,79 @@ import com.jjoe64.graphview.series.PointsGraphSeries;
 
 
 import android.os.Bundle;
+
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Coordinate_System extends Activity {
+public class Coordinate_System extends AppCompatActivity {
 
     //--------------------------------------
     //retrieving DataArray from DataManager
     //--------------------------------------
-
-    private PointsGraphSeries<DataPoint> contigSeries;
+    private PointsGraphSeries<DataPoint> series;
 
 
     //String receiveLoc = (String) getIntent().getExtras().get("fileLocation");
     DataManager dataFile = new DataManager();
 
     //dataFile.dataParser()
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Obtain file Location from FileBrowser.java
-        Intent startingIntent = getIntent();
-        String Loc = startingIntent.getStringExtra("fileLocation");
+        Intent intent = getIntent();
+        String Loc = intent.getStringExtra("fileLocation");
         dataFile.dataParser(Loc);
 
-        /*
-        Bundle receiveLoc = getIntent().getExtras();
-        String fileLocation = (String) receiveLoc.get("fileLocation");
-        */
-        GraphView graph = (GraphView) findViewById(R.id.graph);
-        System.out.println("IT WORKED " + Loc);
-        setContentView(R.layout.activity_coordinate__system);
-        System.out.println("0");
+        System.out.println("Hello " + Loc);
+        setContentView(R.layout.activity_coordinate_system);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        System.out.println("01");
-        //setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
-        //Send data file to dataParser then access the array
-        System.out.println("1");
-        //GraphView graph = (GraphView) findViewById(R.id.graph);
+
+        GraphView graph = (GraphView) findViewById(R.id.graph);
         //data
+        series = new PointsGraphSeries<DataPoint>(generateData());
+        graph.addSeries(series);
 
-        contigSeries = new PointsGraphSeries<>(generateData());
+        double xPos = dataFile.dim1Max;
+        System.out.println("READ MYU XPOS: "+ xPos);
+        double xNeg = dataFile.dim1Min;
+        double yPos = dataFile.dim2Max;
+        double yNeg = dataFile.dim2Min;
 
-        System.out.println("12");
-        //graph.addSeries(contigSeries);
-        System.out.println("123");
-        
+        //viewports to set graph
+        Viewport viewport = graph.getViewport();
+
+        viewport.setXAxisBoundsManual(true);
+        viewport.setMinX(xNeg);
+        viewport.setMaxX(xPos);
+
+        viewport.setYAxisBoundsManual(true);
+        viewport.setMinY(yNeg);
+        viewport.setMaxY(yPos);
+
+        viewport.setScrollable(true);
+        int i = (int)dataFile.dataArray.get(1).dim1;
+        int z = (int)dataFile.dataArray.get(1).dim2;
         /*
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(dataFile.dim1Min - 10);
-        graph.getViewport().setMaxX(dataFile.dim1Max + 10);
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMinY(dataFile.dim2Min - 10);
-        graph.getViewport().setMaxY(dataFile.dim2Max + 10);
-
-        graph.getViewport().setScrollable(true);
+        PointsGraphSeries<DataPoint> series2 = new PointsGraphSeries<DataPoint>(
+                generateData()
+        );
+        graph.addSeries(series2);
+        series2.setShape(PointsGraphSeries.Shape.POINT);
         */
-
     }
-
     private DataPoint[] generateData(){
         int count = dataFile.dataArray.size();
         DataPoint[] values = new DataPoint[count];
         for(int i = 0; i < count; i++){
-            double xValue = dataFile.dataArray.get(i).dim1;
-            double yValue = dataFile.dataArray.get(i).dim2;
-
+            double xValue = (int)dataFile.dataArray.get(i).dim1;
+            double yValue = (int)dataFile.dataArray.get(i).dim2;
             DataPoint v = new DataPoint(xValue, yValue);
-            System.out.println(v);
             values[i] = v;
         }
         return values;
     }
 }
-
