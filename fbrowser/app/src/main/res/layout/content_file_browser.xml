@@ -9,6 +9,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Open File Browser"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dots"
+        android:id="@+id/dotsButton" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Graph"
+        android:id="@+id/graphButton" />
+
     <TextureView
         android:id="@+id/tv1"
         android:layout_width="match_parent"

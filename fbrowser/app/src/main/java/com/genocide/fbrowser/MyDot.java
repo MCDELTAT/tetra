@@ -1,6 +1,5 @@
 package com.genocide.fbrowser;
 
-
 import android.util.Log;
 
 import java.nio.ByteOrder;
@@ -56,7 +55,6 @@ public class MyDot {
     }
 
     public void print(){
-
         Log.d("NAME",OrgName);
     }
 
@@ -76,7 +74,7 @@ public class MyDot {
 
         Log.d("HI","Dot class.");
     }
-    public void draw(GL10 gl) {
+    public void draw(GL10 gl, float one, float two, float three, float four) {
         //FrontFace is set to clockwise
         gl.glFrontFace(GL10.GL_CW);
 
@@ -87,8 +85,8 @@ public class MyDot {
         gl.glPointSize(12);
 
         //Set color
-        gl.glColor4f(.72f, .35f, .2f, .15f);
-
+        //gl.glColor4f(.72f, .35f, .2f, .15f);
+        gl.glColor4f(one, two, three, four);
         //Drawing the point
         gl.glVertexPointer(2, GL10.GL_FLOAT, 0, vertBuff);
         gl.glDrawElements(GL10.GL_POINTS, pIndex.length,GL10.GL_UNSIGNED_SHORT,pBuff);

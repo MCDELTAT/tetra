@@ -13,11 +13,12 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     //Create objects
     private EndPoints mshape;
     private MyDot mdot;
+    Random randomNum = new Random();
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         //In case we need to generate a random number
-        Random randomNum = new Random();
+        //Random randomNum = new Random();
 
         //Set the 'background' color
         gl.glClearColor(.6f, .8f, .5f, .1f);
@@ -47,17 +48,26 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         //Here is an example of setting the coordinates
         //and assigning a name.
-        mdot.setupVertices(-.75f, -.75f, "one");
-        mdot.print();
-        mdot.draw(gl);
+        //mdot.setupVertices(.5f, -.5f, "one");
+        //mdot.print();
+        //mdot.draw(gl, .0f, .0f, .0f, .0f);
 
-        mdot.setupVertices(0, 0, "two");
-        mdot.print();
-        mdot.draw(gl);
+        //mdot.setupVertices(0, 0, "two");
+        //mdot.print();
+        //mdot.draw(gl, .0f, .0f, .0f, .0f);
 
-        happy.setupVertices(.75f, .75f, "happy");
-        happy.draw(gl);
-        happy.print();
+        //happy.setupVertices(.75f, .75f, "happy");
+        //happy.draw(gl, .0f, .0f, .0f, .0f);
+        //happy.print();
+
+
+
+
+        for(int i=0; i<50; i++){
+            mdot.setupVertices((randomNum.nextFloat()*2-1),randomNum.nextFloat()*2-1,"dot#"+i);
+            mdot.draw(gl, randomNum.nextFloat(), randomNum.nextFloat(), randomNum.nextFloat(),randomNum.nextFloat());
+            mdot.print();
+        }
     }
 
     @Override

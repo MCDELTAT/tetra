@@ -1,55 +1,29 @@
 package com.genocide.fbrowser;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.opengl.GLES10;
-//import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.app.Activity;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.opencsv.CSVReader;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
-
 public class FileBrowser extends AppCompatActivity {
-
     Button buttonOpenFileButton;
+    Button buttonOpenDots;
+    Button buttonOpenGraph;
     String path;
-    static final int CUSTOM_DIALOG_ID = 0;
-
     public GLSurfaceView myGLView;
+    static final int CUSTOM_DIALOG_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-       //create new surface view and display it
         myGLView = new MyGLSurfaceView(this);
-        setContentView(myGLView);
-        Log.d("HI", "Hello!\n");
 
-        /*setContentView(R.layout.content_file_browser);
-        implemtes button
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.content_file_browser);
+        //implements button
         buttonOpenFileButton = (Button) findViewById(R.id.openFileButton);
         buttonOpenFileButton.setOnClickListener(new View.OnClickListener() {
 
@@ -57,29 +31,36 @@ public class FileBrowser extends AppCompatActivity {
             public void onClick(View v) {
                 openFolder(v);
             }
-        });*/
+        });
 
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        myGLView.onPause();
-    }
+        buttonOpenDots = (Button) findViewById(R.id.dotsButton);
+        buttonOpenDots.setOnClickListener(new View.OnClickListener() {
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-        myGLView.onResume();
+            @Override
+            public void onClick(View v) {
+                setContentView(myGLView);
+                Log.d("HI", "Hello!\n");
+            }
+        });
+
+        buttonOpenGraph = (Button) findViewById(R.id.graphButton);
+        buttonOpenGraph.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                openGraph(v);
+            }
+        });
     }
 
     public void openFolder(View view) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");
+        intent.setType("text/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
 
         //intent for Samsung file manager
         Intent sIntent = new Intent("com.sec.android.app.myfiles.PICK_DATA");
-        sIntent.putExtra("CONTENT_TYPE", "*/*");
+        sIntent.putExtra("CONTENT_TYPE", "text/*");
         sIntent.addCategory(Intent.CATEGORY_DEFAULT);
 
         Intent chooserIntent;
@@ -106,22 +87,16 @@ public class FileBrowser extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     path = data.getData().getPath();
                     String loc = path.toString();
-
                     // DataManager class to open and parse csv
-                    DataManager dataFile = new DataManager();
-
+                    DataManager dataFile = new DataManager(loc);
                     // passing on location to parse data
-                    dataFile.dataParser(loc);
-
-                    // test file output
-                    System.out.println("File Location: " + loc);
-
+                    dataFile.dataParser();
+                    // debug data
                     System.out.println("Number of data points:" + dataFile.dataArray.size());
-
-                     System.out.println("Data Point: ");
-
                     // examples how to access data of an object, I print all the data points here
                     // I'll leave this here for tests and disable when prototype is ready
+                    // should be empty if error in file. Debug data.
+                    /*
                     for(int i = 0; i < dataFile.dataArray.size(); i++){
                         System.out.println("Data Point #: " + Integer.toString(i + 1));
                         System.out.println(dataFile.dataArray.get(i).contig);
@@ -131,8 +106,18 @@ public class FileBrowser extends AppCompatActivity {
                         System.out.println(dataFile.dataArray.get(i).dim2);
                         System.out.println(dataFile.dataArray.get(i).dim3);
                     }
+                    */
+                    //send location of file to Coordinate_Systemen.java and start activity
+                    Intent sendLoc = new Intent(FileBrowser.this, Coordinate_System.class);
+                    sendLoc.putExtra("fileLocation", loc);
+                    startActivity(sendLoc);
                 }
                 break;
         }
+    }
+
+    public void openGraph(View view) {
+        Intent intent = new Intent(FileBrowser.this, Coordinate_System.class);
+        startActivity(intent );
     }
 }

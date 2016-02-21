@@ -15,6 +15,7 @@ public class EndPoints {
             -1f, -1f,
             -1, 1f
     };
+
     private FloatBuffer vertBuff;
 
     private short[] pIndex = {0, 1, 2, 3};
