@@ -17,7 +17,6 @@ public class Coordinate_System extends AppCompatActivity {
     //--------------------------------------
     private PointsGraphSeries<DataPoint> series;
 
-
     //String receiveLoc = (String) getIntent().getExtras().get("fileLocation");
     DataManager dataFile = new DataManager();
 
@@ -37,6 +36,7 @@ public class Coordinate_System extends AppCompatActivity {
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
         //data
+        
         series = new PointsGraphSeries<DataPoint>(generateData());
         graph.addSeries(series);
         series.setShape(PointsGraphSeries.Shape.POINT);
