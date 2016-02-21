@@ -26,7 +26,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Coordinate_System extends AppCompatActivity {
+public class Coordinate_System extends Activity {
 
     //--------------------------------------
     //retrieving DataArray from DataManager
@@ -34,11 +34,9 @@ public class Coordinate_System extends AppCompatActivity {
 
     private PointsGraphSeries<DataPoint> contigSeries;
 
-    //Obtain file Location from FileBrowser.java
-    Bundle receiveLoc = getIntent().getExtras();
-    String fileLocation = (String) receiveLoc.get("fileLocation");
+
     //String receiveLoc = (String) getIntent().getExtras().get("fileLocation");
-    DataManager dataFile = new DataManager(fileLocation);
+    DataManager dataFile = new DataManager();
 
     //dataFile.dataParser()
 
@@ -46,21 +44,35 @@ public class Coordinate_System extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Obtain file Location from FileBrowser.java
+        Intent startingIntent = getIntent();
+        String Loc = startingIntent.getStringExtra("fileLocation");
+        dataFile.dataParser(Loc);
 
+        /*
+        Bundle receiveLoc = getIntent().getExtras();
+        String fileLocation = (String) receiveLoc.get("fileLocation");
+        */
         GraphView graph = (GraphView) findViewById(R.id.graph);
-
+        System.out.println("IT WORKED " + Loc);
         setContentView(R.layout.activity_coordinate__system);
+        System.out.println("0");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        System.out.println("01");
+        //setSupportActionBar(toolbar);
 
         //Send data file to dataParser then access the array
-        dataFile.dataParser();
+        System.out.println("1");
         //GraphView graph = (GraphView) findViewById(R.id.graph);
         //data
 
         contigSeries = new PointsGraphSeries<>(generateData());
-        graph.addSeries(contigSeries);
 
+        System.out.println("12");
+        //graph.addSeries(contigSeries);
+        System.out.println("123");
+        
+        /*
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(dataFile.dim1Min - 10);
         graph.getViewport().setMaxX(dataFile.dim1Max + 10);
@@ -69,6 +81,7 @@ public class Coordinate_System extends AppCompatActivity {
         graph.getViewport().setMaxY(dataFile.dim2Max + 10);
 
         graph.getViewport().setScrollable(true);
+        */
 
     }
 
@@ -80,6 +93,7 @@ public class Coordinate_System extends AppCompatActivity {
             double yValue = dataFile.dataArray.get(i).dim2;
 
             DataPoint v = new DataPoint(xValue, yValue);
+            System.out.println(v);
             values[i] = v;
         }
         return values;
