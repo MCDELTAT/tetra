@@ -39,7 +39,7 @@ public class Coordinate_System extends AppCompatActivity {
     //--------------------------------------
     //retrieving DataArray from DataManager
     //--------------------------------------
-    private LineGraphSeries<DataPoint> series;
+    private PointsGraphSeries<DataPoint> series;
 
 
     //String receiveLoc = (String) getIntent().getExtras().get("fileLocation");
@@ -61,10 +61,9 @@ public class Coordinate_System extends AppCompatActivity {
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
         //data
-        series = new LineGraphSeries<DataPoint>();
+        series = new PointsGraphSeries<DataPoint>(generateData());
         graph.addSeries(series);
 
-        ///sdcard/Download/GBSwater_with_Aqui_and_Cren_for_AppTeam_160126.csv
         double xPos = dataFile.dim1Max;
         System.out.println("READ MYU XPOS: "+ xPos);
         double xNeg = dataFile.dim1Min;
@@ -83,14 +82,25 @@ public class Coordinate_System extends AppCompatActivity {
         viewport.setMaxY(yPos);
 
         viewport.setScrollable(true);
-
-        PointsGraphSeries<DataPoint> series2 = new PointsGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(250,250),
-                new DataPoint(0,0),
-                //Can't b/c the point is a double, not int
-                // new DataPoint(getDimensions.dataArray.get(1).dim1)
-        });
+        int i = (int)dataFile.dataArray.get(1).dim1;
+        int z = (int)dataFile.dataArray.get(1).dim2;
+        /*
+        PointsGraphSeries<DataPoint> series2 = new PointsGraphSeries<DataPoint>(
+                generateData()
+        );
         graph.addSeries(series2);
         series2.setShape(PointsGraphSeries.Shape.POINT);
+        */
+    }
+    private DataPoint[] generateData(){
+        int count = dataFile.dataArray.size();
+        DataPoint[] values = new DataPoint[count];
+        for(int i = 0; i < count; i++){
+            double xValue = (int)dataFile.dataArray.get(i).dim1;
+            double yValue = (int)dataFile.dataArray.get(i).dim2;
+            DataPoint v = new DataPoint(xValue, yValue);
+            values[i] = v;
+        }
+        return values;
     }
 }
