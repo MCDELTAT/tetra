@@ -1,14 +1,19 @@
 package com.genocide.fbrowser;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.DataPointInterface;
+import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.PointsGraphSeries;
+import com.jjoe64.graphview.series.Series;
 
 public class Coordinate_System extends AppCompatActivity {
 
@@ -36,11 +41,45 @@ public class Coordinate_System extends AppCompatActivity {
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
         //data
-        
+
         series = new PointsGraphSeries<DataPoint>(generateData());
         graph.addSeries(series);
         series.setShape(PointsGraphSeries.Shape.POINT);
-        series.setSize(1.5f);
+        series.setSize(2);
+        //series.setColor(Color.BLUE); // sets color of series
+
+        // lets you tap on point to get point info, not sure if you can modify to display other info
+        series.setOnDataPointTapListener(new OnDataPointTapListener() {
+            @Override
+            public void onTap(Series series, DataPointInterface dataPoint) {
+                int count = dataFile.dataArray.size();
+                int index= 0;
+                for(int i = 0; i < count; i++){
+                    double xValue = (int)dataFile.dataArray.get(i).dim1;
+                    double yValue = (int)dataFile.dataArray.get(i).dim2;
+                    DataPoint v = new DataPoint(xValue, yValue);
+                    if (v.getX()== dataPoint.getX() && v.getY() == dataPoint.getY()){
+                        System.out.println(dataPoint);
+                        index = i;
+                        break;
+                    }
+                }
+                System.out.println("Index: " + index);
+                Toast.makeText(Coordinate_System.this, "Data Point clicked: " +
+                        "Contig: " +
+                        (dataFile.dataArray.get(index).contig)+
+                        "\nOrganism: " +
+                        (dataFile.dataArray.get(index).organism)+
+                        "\nSize: " +
+                        (dataFile.dataArray.get(index).size)+
+                        "\ndim1: " +
+                        (dataFile.dataArray.get(index).dim1)+
+                        "\ndim2: " +
+                        (dataFile.dataArray.get(index).dim2)+
+                        "\ndim3: " +
+                        (dataFile.dataArray.get(index).dim3), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         double xPos = dataFile.dim1Max;
         System.out.println("READ MYU XPOS: "+ xPos);
@@ -61,8 +100,31 @@ public class Coordinate_System extends AppCompatActivity {
 
         viewport.setScalable(true);
         viewport.setScrollable(true);
+/*
+        GraphView point_graph = (GraphView) findViewById(R.id.graph);
+        PointsGraphSeries<DataPoint> point_series = new PointsGraphSeries<DataPoint>(new DataPoint[] {
+                new DataPoint(0, 5),
+                new DataPoint(1, 0),
+                new DataPoint(2, 3),
+                new DataPoint(3, 3),
+                new DataPoint(4, 1.5)
+        });
+        point_graph.addSeries(point_series);
+        point_series.setShape(PointsGraphSeries.Shape.POINT);
+        point_series.setColor(Color.BLUE);
+        point_series.setSize(18);
+        point_series.setOnDataPointTapListener(new OnDataPointTapListener() {
+            @Override
+            public void onTap(Series series, DataPointInterface dataPoint) {
+                Toast.makeText(Coordinate_System.this, "Series1: On Data Point clicked: " + dataPoint, Toast.LENGTH_SHORT).show();
+            }
+        });
+        */
 
     }
+
+
+
     private DataPoint[] generateData(){
         int count = dataFile.dataArray.size();
         DataPoint[] values = new DataPoint[count];
