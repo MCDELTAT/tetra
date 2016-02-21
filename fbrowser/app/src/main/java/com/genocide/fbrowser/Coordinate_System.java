@@ -1,39 +1,14 @@
 package com.genocide.fbrowser;
 
-
-import android.app.Activity;
-import android.content.Context;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import android.view.View;
-
-
-import android.util.AttributeSet;
-import android.view.View;
-import android.view.LayoutInflater;
-import android.os.Handler;
-
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
-
-
-import android.os.Bundle;
-
-import android.view.ViewGroup;
-
-import java.util.ArrayList;
-import java.util.Random;
-// delete unnecessary imports
 
 public class Coordinate_System extends AppCompatActivity {
 
@@ -64,6 +39,8 @@ public class Coordinate_System extends AppCompatActivity {
         //data
         series = new PointsGraphSeries<DataPoint>(generateData());
         graph.addSeries(series);
+        series.setShape(PointsGraphSeries.Shape.POINT);
+        series.setSize(1.5f);
 
         double xPos = dataFile.dim1Max;
         System.out.println("READ MYU XPOS: "+ xPos);
@@ -82,15 +59,9 @@ public class Coordinate_System extends AppCompatActivity {
         viewport.setMinY(yNeg);
         viewport.setMaxY(yPos);
 
+        viewport.setScalable(true);
         viewport.setScrollable(true);
 
-        /*
-        PointsGraphSeries<DataPoint> series2 = new PointsGraphSeries<DataPoint>(
-                generateData()
-        );
-        graph.addSeries(series2);
-        series2.setShape(PointsGraphSeries.Shape.POINT);
-        */
     }
     private DataPoint[] generateData(){
         int count = dataFile.dataArray.size();
