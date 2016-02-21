@@ -65,7 +65,7 @@ public class Coordinate_System extends AppCompatActivity {
                     }
                 }
                 System.out.println("Index: " + index);
-                Toast.makeText(Coordinate_System.this, "Data Point clicked: " +
+                Toast.makeText(Coordinate_System.this,
                         "Contig: " +
                         (dataFile.dataArray.get(index).contig)+
                         "\nOrganism: " +
