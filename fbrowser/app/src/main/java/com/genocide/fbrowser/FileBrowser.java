@@ -74,9 +74,9 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
                 path = data.getData().getPath();
                     String loc = path.toString();
                     // DataManager class to open and parse csv
-                    DataManager dataFile = new DataManager(loc);
+                    DataManager dataFile = new DataManager();
                     // passing on location to parse data
-                    dataFile.dataParser();
+                    dataFile.dataParser(loc);
                     // debug data
                     System.out.println("Number of data points:" + dataFile.dataArray.size());
                     // examples how to access data of an object, I print all the data points here

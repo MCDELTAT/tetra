@@ -18,9 +18,7 @@ public class DataManager {
     public ArrayList<DataObject> dataArray = new ArrayList();
     // ArrayList that each data object is added to
 
-    public DataManager(String loc) {
-        mCsvLocation = loc;
-    }
+
     private static int commaCount(String line) {
         int commas = 0;
         for(int i = 0; i < line.length(); i++) {
@@ -28,7 +26,8 @@ public class DataManager {
         }
         return commas;
     }
-    public void dataParser() {
+    public void dataParser(String loc) {
+        mCsvLocation = loc;
         // splits filelocation
         String[] fileLoc = mCsvLocation.split(":");
         String tempLoc = "";
