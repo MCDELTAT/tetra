@@ -33,6 +33,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.Random;
+// delete unnecessary imports
 
 public class Coordinate_System extends AppCompatActivity {
 
@@ -82,8 +83,7 @@ public class Coordinate_System extends AppCompatActivity {
         viewport.setMaxY(yPos);
 
         viewport.setScrollable(true);
-        int i = (int)dataFile.dataArray.get(1).dim1;
-        int z = (int)dataFile.dataArray.get(1).dim2;
+
         /*
         PointsGraphSeries<DataPoint> series2 = new PointsGraphSeries<DataPoint>(
                 generateData()
