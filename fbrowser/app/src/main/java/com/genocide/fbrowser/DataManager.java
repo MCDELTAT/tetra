@@ -50,7 +50,7 @@ public class DataManager {
             while ((line = br.readLine()) != null) {
                 // line comma count function
                 int commas = commaCount(line);
-                System.out.println(line + " has " + commas + " commas!");
+                //System.out.println(line + " has " + commas + " commas!");
                 // sanity check for file object line integrity, error if 5
                 // commas not found
                 if (commas != 5) {

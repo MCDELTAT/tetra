@@ -9,8 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Open File Browser"/>
-    <TextureView
-        android:id="@+id/tv1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="Graph"
+        android:id="@+id/graphButton"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>

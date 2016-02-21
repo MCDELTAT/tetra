@@ -2,14 +2,25 @@ package com.genocide.fbrowser;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.PersistableBundle;
+
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.Viewport;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
 
 public class FileBrowser extends AppCompatActivity {
     Button buttonOpenFileButton;
     String path;
+    Button buttonGraph;
     static final int CUSTOM_DIALOG_ID = 0;
 
     @Override
@@ -25,6 +36,7 @@ public class FileBrowser extends AppCompatActivity {
                 openFolder(v);
             }
         });
+
     }
 
     public void openFolder(View view) {
@@ -54,12 +66,12 @@ public class FileBrowser extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case CUSTOM_DIALOG_ID:
-                if (resultCode == RESULT_OK) {
-                    path = data.getData().getPath();
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    switch (requestCode) {
+        case CUSTOM_DIALOG_ID:
+            if (resultCode == RESULT_OK) {
+                path = data.getData().getPath();
                     String loc = path.toString();
                     // DataManager class to open and parse csv
                     DataManager dataFile = new DataManager(loc);
@@ -81,9 +93,15 @@ public class FileBrowser extends AppCompatActivity {
                         System.out.println(dataFile.dataArray.get(i).dim3);
                     }
                     */
-                }
-                break;
-        }
+                //send location of file to Coordinate_Systemen.java and start activity
+                Intent sendLoc = new Intent(FileBrowser.this, Coordinate_System.class);
+                sendLoc.putExtra("fileLocation", loc);
+                startActivity(sendLoc);
+
+            }
+            break;
     }
 }
 
+
+}
