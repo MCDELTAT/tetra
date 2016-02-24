@@ -1,39 +1,22 @@
 package com.genocide.fbrowser;
 
-
-import android.app.Activity;
-import android.content.Context;
-
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import android.view.View;
-
-
-import android.util.AttributeSet;
-import android.view.View;
-import android.view.LayoutInflater;
-import android.os.Handler;
-
+import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.DataPointInterface;
+import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.PointsGraphSeries;
-
-
-import android.os.Bundle;
-
-import android.view.ViewGroup;
+import com.jjoe64.graphview.series.Series;
 
 import java.util.ArrayList;
 import java.util.Random;
-// delete unnecessary imports
 
 public class Coordinate_System extends AppCompatActivity {
 
@@ -42,6 +25,8 @@ public class Coordinate_System extends AppCompatActivity {
     //--------------------------------------
     private PointsGraphSeries<DataPoint> series;
 
+    //Used to keep the different types of organisms
+    public ArrayList<String> namesArray = new ArrayList();
 
     //String receiveLoc = (String) getIntent().getExtras().get("fileLocation");
     DataManager dataFile = new DataManager();
@@ -59,11 +44,101 @@ public class Coordinate_System extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //-------Add the first element to my names array, this assumes that the file is not empty----------
+        namesArray.add(dataFile.dataArray.get(0).organism);
+        //-------Go through the data, find and add organisms that are not in the names array ----------
+        for (int i = 1; i < dataFile.dataArray.size(); i++) {
+            if (!namesArray.contains(dataFile.dataArray.get(i).organism)){
+                namesArray.add(dataFile.dataArray.get(i).organism);
+            }
+        }
+        //-----Prints out our names array, primary use for debugging ----
+        System.out.println(namesArray.size());
+        for (int i = 0; i < namesArray.size(); i++){
+            System.out.println(namesArray.get(i));
+        }
+
+        //------Used when we generate the random colors.
+        Random randomNum = new Random();
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
         //data
-        series = new PointsGraphSeries<DataPoint>(generateData());
-        graph.addSeries(series);
+        for(int i=0;i<namesArray.size();i++) {
+            //-------------------Generate points that only have the organism name of names array of i
+            series = new PointsGraphSeries<DataPoint>(generateData(namesArray.get(i)));
+            graph.addSeries(series);
+            series.setShape(PointsGraphSeries.Shape.POINT);
+            series.setSize(1.5f);
+            //----------------Set a random color for that organism
+            series.setColor(Color.rgb(randomNum.nextInt(), randomNum.nextInt(), randomNum.nextInt()));
+
+            //----!-!-!-!-!I moved this here because the tap would only work for the last series graphed, in my case the unknown's
+            series.setOnDataPointTapListener(new OnDataPointTapListener() {
+                @Override
+                public void onTap(Series series, DataPointInterface dataPoint) {
+                    int count = dataFile.dataArray.size();
+                    int index = 0;
+                    for (int i = 0; i < count; i++) {
+                        double xValue = (int) dataFile.dataArray.get(i).dim1;
+                        double yValue = (int) dataFile.dataArray.get(i).dim2;
+                        DataPoint v = new DataPoint(xValue, yValue);
+                        if (v.getX() == dataPoint.getX() && v.getY() == dataPoint.getY()) {
+                            System.out.println(dataPoint);
+                            index = i;
+                            break;
+                        }
+                    }
+                    System.out.println("Index: " + index);
+                    Toast.makeText(Coordinate_System.this,
+                            "Contig: " +
+                                    (dataFile.dataArray.get(index).contig) +
+                                    "\nOrganism: " +
+                                    (dataFile.dataArray.get(index).organism) +
+                                    "\nSize: " +
+                                    (dataFile.dataArray.get(index).size) +
+                                    "\ndim1: " +
+                                    (dataFile.dataArray.get(index).dim1) +
+                                    "\ndim2: " +
+                                    (dataFile.dataArray.get(index).dim2) +
+                                    "\ndim3: " +
+                                    (dataFile.dataArray.get(index).dim3), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+
+
+        /*series.setOnDataPointTapListener(new OnDataPointTapListener() {
+            @Override
+            public void onTap(Series series, DataPointInterface dataPoint) {
+                int count = dataFile.dataArray.size();
+                int index = 0;
+                for (int i = 0; i < count; i++) {
+                    double xValue = (int) dataFile.dataArray.get(i).dim1;
+                    double yValue = (int) dataFile.dataArray.get(i).dim2;
+                    DataPoint v = new DataPoint(xValue, yValue);
+                    if (v.getX() == dataPoint.getX() && v.getY() == dataPoint.getY()) {
+                        System.out.println(dataPoint);
+                        index = i;
+                        break;
+                    }
+                }
+                System.out.println("Index: " + index);
+                Toast.makeText(Coordinate_System.this,
+                        "Contig: " +
+                                (dataFile.dataArray.get(index).contig) +
+                                "\nOrganism: " +
+                                (dataFile.dataArray.get(index).organism) +
+                                "\nSize: " +
+                                (dataFile.dataArray.get(index).size) +
+                                "\ndim1: " +
+                                (dataFile.dataArray.get(index).dim1) +
+                                "\ndim2: " +
+                                (dataFile.dataArray.get(index).dim2) +
+                                "\ndim3: " +
+                                (dataFile.dataArray.get(index).dim3), Toast.LENGTH_SHORT).show();
+            }
+        });*/
 
         double xPos = dataFile.dim1Max;
         System.out.println("READ MYU XPOS: "+ xPos);
@@ -82,17 +157,12 @@ public class Coordinate_System extends AppCompatActivity {
         viewport.setMinY(yNeg);
         viewport.setMaxY(yPos);
 
+        viewport.setScalable(true);
         viewport.setScrollable(true);
 
-        /*
-        PointsGraphSeries<DataPoint> series2 = new PointsGraphSeries<DataPoint>(
-                generateData()
-        );
-        graph.addSeries(series2);
-        series2.setShape(PointsGraphSeries.Shape.POINT);
-        */
     }
-    private DataPoint[] generateData(){
+    //Original
+    /*private DataPoint[] generateData(){
         int count = dataFile.dataArray.size();
         DataPoint[] values = new DataPoint[count];
         for(int i = 0; i < count; i++){
@@ -101,6 +171,27 @@ public class Coordinate_System extends AppCompatActivity {
             DataPoint v = new DataPoint(xValue, yValue);
             values[i] = v;
         }
+        return values;
+    }*/
+
+    //-------------------Added a string input to generate points for that organism only
+    private DataPoint[] generateData(String target) {
+        int count = dataFile.dataArray.size();
+        //------------------Made an temp array list for the points
+        ArrayList<DataPoint> temp = new ArrayList();
+        for (int i = 0; i < count; i++) {
+            //-------------This adds a point only if its the organism we want
+            if ( target.equals(dataFile.dataArray.get(i).organism)) {
+                double xValue = (int) dataFile.dataArray.get(i).dim1;
+                double yValue = (int) dataFile.dataArray.get(i).dim2;
+                DataPoint v = new DataPoint(xValue, yValue);
+                temp.add(v);
+            }
+        }
+        //-------------------This converts our Array list to a normal array
+        DataPoint[] values = new DataPoint[temp.size()];
+        temp.toArray(values);
+
         return values;
     }
 }

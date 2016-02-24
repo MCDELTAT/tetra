@@ -25,20 +25,12 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class FileBrowser extends AppCompatActivity {
     Button buttonOpenFileButton;
-    Button buttonOpenDots;
-    Button buttonOpenGraph;
     String path;
-
-    public GLSurfaceView myGLView;
-
-    Button buttonGraph;
 
     static final int CUSTOM_DIALOG_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        myGLView = new MyGLSurfaceView(this);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_file_browser);
         //implements button
@@ -48,25 +40,6 @@ public class FileBrowser extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openFolder(v);
-            }
-        });
-
-        buttonOpenDots = (Button) findViewById(R.id.dotsButton);
-        buttonOpenDots.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                setContentView(myGLView);
-                Log.d("HI", "Hello!\n");
-            }
-        });
-
-        buttonOpenGraph = (Button) findViewById(R.id.graphButton);
-        buttonOpenGraph.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                openGraph(v);
             }
         });
     }
@@ -134,10 +107,5 @@ public class FileBrowser extends AppCompatActivity {
                 }
                 break;
         }
-    }
-
-    public void openGraph(View view) {
-        Intent intent = new Intent(FileBrowser.this, Coordinate_System.class);
-        startActivity(intent );
     }
 }
