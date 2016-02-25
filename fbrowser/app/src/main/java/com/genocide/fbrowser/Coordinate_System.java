@@ -28,10 +28,9 @@ public class Coordinate_System extends AppCompatActivity {
     //Used to keep the different types of organisms
     public ArrayList<String> namesArray = new ArrayList();
 
-    //String receiveLoc = (String) getIntent().getExtras().get("fileLocation");
+    // Datamanager class to deal with file IO
     DataManager dataFile = new DataManager();
 
-    //dataFile.dataParser()
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +67,7 @@ public class Coordinate_System extends AppCompatActivity {
             series = new PointsGraphSeries<DataPoint>(generateData(namesArray.get(i)));
             graph.addSeries(series);
             series.setShape(PointsGraphSeries.Shape.POINT);
-            series.setSize(1.5f);
+            series.setSize(3f);
             //----------------Set a random color for that organism
             series.setColor(Color.rgb(randomNum.nextInt(), randomNum.nextInt(), randomNum.nextInt()));
 
@@ -106,40 +105,6 @@ public class Coordinate_System extends AppCompatActivity {
             });
         }
 
-
-
-        /*series.setOnDataPointTapListener(new OnDataPointTapListener() {
-            @Override
-            public void onTap(Series series, DataPointInterface dataPoint) {
-                int count = dataFile.dataArray.size();
-                int index = 0;
-                for (int i = 0; i < count; i++) {
-                    double xValue = (int) dataFile.dataArray.get(i).dim1;
-                    double yValue = (int) dataFile.dataArray.get(i).dim2;
-                    DataPoint v = new DataPoint(xValue, yValue);
-                    if (v.getX() == dataPoint.getX() && v.getY() == dataPoint.getY()) {
-                        System.out.println(dataPoint);
-                        index = i;
-                        break;
-                    }
-                }
-                System.out.println("Index: " + index);
-                Toast.makeText(Coordinate_System.this,
-                        "Contig: " +
-                                (dataFile.dataArray.get(index).contig) +
-                                "\nOrganism: " +
-                                (dataFile.dataArray.get(index).organism) +
-                                "\nSize: " +
-                                (dataFile.dataArray.get(index).size) +
-                                "\ndim1: " +
-                                (dataFile.dataArray.get(index).dim1) +
-                                "\ndim2: " +
-                                (dataFile.dataArray.get(index).dim2) +
-                                "\ndim3: " +
-                                (dataFile.dataArray.get(index).dim3), Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
         double xPos = dataFile.dim1Max;
         System.out.println("READ MYU XPOS: "+ xPos);
         double xNeg = dataFile.dim1Min;
@@ -159,21 +124,7 @@ public class Coordinate_System extends AppCompatActivity {
 
         viewport.setScalable(true);
         viewport.setScrollable(true);
-
     }
-    //Original
-    /*private DataPoint[] generateData(){
-        int count = dataFile.dataArray.size();
-        DataPoint[] values = new DataPoint[count];
-        for(int i = 0; i < count; i++){
-            double xValue = (int)dataFile.dataArray.get(i).dim1;
-            double yValue = (int)dataFile.dataArray.get(i).dim2;
-            DataPoint v = new DataPoint(xValue, yValue);
-            values[i] = v;
-        }
-        return values;
-    }*/
-
     //-------------------Added a string input to generate points for that organism only
     private DataPoint[] generateData(String target) {
         int count = dataFile.dataArray.size();
