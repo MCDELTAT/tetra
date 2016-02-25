@@ -71,7 +71,6 @@ public class FileBrowser extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -83,27 +82,18 @@ public class FileBrowser extends AppCompatActivity {
                     DataManager dataFile = new DataManager();
                     // passing on location to parse data
                     dataFile.dataParser(loc);
-
                     // debug data
                     System.out.println("Number of data points:" + dataFile.dataArray.size());
-                    // examples how to access data of an object, I print all the data points here
-                    // I'll leave this here for tests and disable when prototype is ready
-                    // should be empty if error in file. Debug data.
-                    /*
-                    for(int i = 0; i < dataFile.dataArray.size(); i++){
-                        System.out.println("Data Point #: " + Integer.toString(i + 1));
-                        System.out.println(dataFile.dataArray.get(i).contig);
-                        System.out.println(dataFile.dataArray.get(i).organism);
-                        System.out.println(dataFile.dataArray.get(i).size);
-                        System.out.println(dataFile.dataArray.get(i).dim1);
-                        System.out.println(dataFile.dataArray.get(i).dim2);
-                        System.out.println(dataFile.dataArray.get(i).dim3);
+                    if(dataFile.dataArray.size() > 0){
+                        Intent sendLoc = new Intent(FileBrowser.this, Coordinate_System.class);
+                        sendLoc.putExtra("fileLocation", loc);
+                        startActivity(sendLoc);
                     }
-                    */
-                    //send location of file to Coordinate_Systemen.java and start activity
-                    Intent sendLoc = new Intent(FileBrowser.this, Coordinate_System.class);
-                    sendLoc.putExtra("fileLocation", loc);
-                    startActivity(sendLoc);
+                    else {
+                        Toast.makeText(FileBrowser.this,
+                                "Load a valid .CSV file"
+                                , Toast.LENGTH_SHORT).show();
+                    }
                 }
                 break;
         }
