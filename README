@@ -1,2 +1,13 @@
 Github Repo for CSE455 Project Tetranucleotide Viewer
 
+Build + Run Instructions:
+
+It is recommended to have a file browser installed on the system, prefferably one without ads.  
+
+The data is a propreitary formatted CSV by Dr. Dodsworth, download the files here:
+https://drive.google.com/open?id=0B2ZHRckEETuccWtiWWtsd3pLTU0
+https://drive.google.com/open?id=0B2ZHRckEETucdXRMdzh1bXNFczQ
+
+As per the SPMP, all input files are stored locally, so save these input files on an SD card or other local directory.
+
+
