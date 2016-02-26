@@ -102,14 +102,8 @@ document.body.appendChild(species1Btn);
 //add the event listener
 species1Btn.addEventListener("click", function(){changeVisible(4,8); });
 
-var object = scene.getObjectById(4,true);
-var object1 = scene.getObjectById(3,true);
-console.log(object);
-console.log(object1);
-
 function render() {
 	requestAnimationFrame(render);
 	renderer.render(scene,camera);
 }
 render();
-
