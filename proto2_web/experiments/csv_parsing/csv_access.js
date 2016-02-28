@@ -1,12 +1,3 @@
-/*
-for (var i=1; i<=10; i++){
-	var fnKey = baseElementName.concat(i.toString());
-	data[fnKey] = i;
-}
-
-console.log("Contents of Data object are: ", data.sphere1);
-console.log("Contents of Data object are: ", data.sphere7);*/
-
 var fs = require('fs');
 var csv = require('fast-csv');
 var stream = fs.createReadStream('tetra_short.csv');
@@ -86,5 +77,3 @@ function getMinMax(){
 }
 
 //split into species and list number of entries
-
-
