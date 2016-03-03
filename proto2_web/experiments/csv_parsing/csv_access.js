@@ -7,18 +7,22 @@ var baseElementName = "contig";
 var i = 1; //counter for line output
 
 var csvStream = csv()
-	//print out only the first 20 elements.
+	//add the each line of CSV to parsedData object
 	.on("data", function(data){
-		if (i<=300){
-			var fnKey = baseElementName.concat(i.toString());
-			parsedData[fnKey] = data;
+		//TO-DO: check data integrity here.
+		if(data != "Contig,Organism,Size,dim1,dim2,dim3"){
+			if (i<=2500){
+				var fnKey = baseElementName.concat((i-2).toString());
+				parsedData[fnKey] = data;
+			}
 		}
 		i++;
 	})
 	.on("end", function(){
 		console.log("done");
 		//call the parsing functions in here to remain in scope.
-		getMinMax();
+		console.log(parsedData);
+		//getMinMax();
 	});
 
 stream.pipe(csvStream);	
