@@ -21,8 +21,9 @@ var csvStream = csv()
 	.on("end", function(){
 		console.log("done");
 		//call the parsing functions in here to remain in scope.
-		console.log(parsedData);
-		//getMinMax();
+		//console.log(parsedData);
+		getMinMax();
+		createSpeciesObjects();
 	});
 
 stream.pipe(csvStream);	
@@ -43,7 +44,6 @@ function getMinMax(){
 		if (parsedData.hasOwnProperty(property)){
 			var tempArray = parsedData[property];
 			//if the current lines value is less than the min, it is the new min.
-			//console.log("Comparing the values "+parseFloat(tempArray[3])+" & "+parseFloat(graphMaxima["xMin"])+".");
 			if (parseFloat(tempArray[3]) < parseFloat(graphMaxima["xMin"])){
 				graphMaxima["xMin"] = tempArray[3];
 				console.log("New X-Minimum: ", tempArray[3]);
@@ -80,4 +80,27 @@ function getMinMax(){
 	console.log("The Z-Maximum is: ",graphMaxima["zMax"]);
 }
 
+var speciesArray = []; //array that will contain the different species
 //split into species and list number of entries
+function createSpeciesObjects(){
+	for (var property in parsedData){
+		if (parsedData.hasOwnProperty(property)){
+			var tempArray = parsedData[property];
+			var speciesName1 = "";
+			var speciesCount = -1;
+			var fnKey = baseElementName.concat((i-2).toString());
+			//if the species name changes, create a new object for it.
+			if (speciesName1 != tempArray[1]){
+				speciesName1 = tempArray[1]; 
+				speciesArray.push(new.Object())
+				speciesCount++; //start the count at zero.
+			}
+			parsedData[fnKey] = data;
+			speciesArray[speciesCount][fnKey] = 
+
+			console.log("The first species name is: ",speciesName1);
+		}
+	}
+}
+
+
