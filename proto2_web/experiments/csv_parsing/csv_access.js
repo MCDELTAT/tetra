@@ -81,26 +81,29 @@ function getMinMax(){
 }
 
 var speciesArray = []; //array that will contain the different species
-//split into species and list number of entries
+//function takes in parsedData from above, and splits the different species into
+//different objects. These objects are then stored in an array.
 function createSpeciesObjects(){
+	var speciesName1 = "";
+	var speciesCount = -1;
+	var i = 1;
 	for (var property in parsedData){
 		if (parsedData.hasOwnProperty(property)){
 			var tempArray = parsedData[property];
-			var speciesName1 = "";
-			var speciesCount = -1;
-			var fnKey = baseElementName.concat((i-2).toString());
+			var fnKey = baseElementName.concat((i).toString());
 			//if the species name changes, create a new object for it.
 			if (speciesName1 != tempArray[1]){
 				speciesName1 = tempArray[1]; 
-				speciesArray.push(new.Object())
+				speciesArray.push(new Object())
 				speciesCount++; //start the count at zero.
+				console.log(typeof speciesName1);
+				//console.log("The first species name is: ",speciesName1);
+				//console.log("The number of species is ", (speciesCount+1));
 			}
-			parsedData[fnKey] = data;
-			speciesArray[speciesCount][fnKey] = 
-
-			console.log("The first species name is: ",speciesName1);
+			speciesArray[speciesCount][fnKey] = tempArray;
+			i++;
 		}
 	}
+	console.log("The contents of array are: \n",speciesArray[2]); //method access single species obj.
+	console.log("The value of speciesCount is: ",(speciesCount+1));
 }
-
-
