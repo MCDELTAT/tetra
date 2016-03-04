@@ -1,3 +1,4 @@
+//node require statements
 var fs = require('fs');
 var csv = require('fast-csv');
 var stream = fs.createReadStream('tetra_short.csv');
@@ -7,10 +8,10 @@ var baseElementName = "contig";
 var i = 1; //counter for line output
 
 var csvStream = csv()
-	//add the each line of CSV to parsedData object
+	//add each line of CSV to parsedData object
 	.on("data", function(data){
 		//TO-DO: check data integrity here.
-		if(data != "Contig,Organism,Size,dim1,dim2,dim3"){
+		if(data != "Contig,Organism,Size,dim1,dim2,dim3"){ //skip first line
 			if (i<=2500){
 				var fnKey = baseElementName.concat((i-2).toString());
 				parsedData[fnKey] = data;
@@ -87,6 +88,7 @@ function createSpeciesObjects(){
 	var speciesName1 = "";
 	var speciesCount = -1;
 	var i = 1;
+	//loop through parsedData Object, for each line, add to corresponding species obj.
 	for (var property in parsedData){
 		if (parsedData.hasOwnProperty(property)){
 			var tempArray = parsedData[property];
@@ -97,9 +99,8 @@ function createSpeciesObjects(){
 				speciesArray.push(new Object())
 				speciesCount++; //start the count at zero.
 				console.log(typeof speciesName1);
-				//console.log("The first species name is: ",speciesName1);
-				//console.log("The number of species is ", (speciesCount+1));
 			}
+			//speciesArray[speciesCount] is object, as above, add data entry to that species object.
 			speciesArray[speciesCount][fnKey] = tempArray;
 			i++;
 		}
