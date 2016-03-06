@@ -1,13 +1,18 @@
 //node require statements
 var fs = require('fs');
 var csv = require('fast-csv');
-var stream = fs.createReadStream('bd002ae93234bfaa06b9b935d9082df4');
+var stream;
+var fileInput = 'bd002ae93234bfaa06b9b935d9082df4';
 
 var parsedData = {};
 var baseElementName = "contig";
 var i = 1; //counter for line output
 
-var csvStream = csv()
+parseData(fileInput);
+
+function parseData(inputFile){
+	stream = fs.createReadStream(inputFile);
+	var csvStream = csv()
 	//add each line of CSV to parsedData object
 	.on("data", function(data){
 		//TO-DO: check data integrity here.
@@ -28,7 +33,7 @@ var csvStream = csv()
 	});
 
 stream.pipe(csvStream);	
-
+}
 //now that parsedData is an object with all the data from csv in it,
 //do some file additional parsing before sending it to graph
 var graphMaxima = {
