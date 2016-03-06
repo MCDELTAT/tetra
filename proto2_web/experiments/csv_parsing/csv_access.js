@@ -1,7 +1,7 @@
 //node require statements
 var fs = require('fs');
 var csv = require('fast-csv');
-var stream = fs.createReadStream('tetra_short.csv');
+var stream = fs.createReadStream('bd002ae93234bfaa06b9b935d9082df4');
 
 var parsedData = {};
 var baseElementName = "contig";

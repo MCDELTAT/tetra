@@ -60,6 +60,7 @@ function changeVisible(startRange, stopRange){
 	}
 }
 
+//actual: get length of parsed species object, loop n.
 var species1 = {
 	contig1: {
 		xCoor: -152.71487,

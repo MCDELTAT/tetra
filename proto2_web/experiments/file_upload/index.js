@@ -17,7 +17,7 @@ app.get('/', function(req,res){
 
 app.post('/', multer({dest: './uploads/',limits: {fileSize: 1000000, files: 1}}).single('upl'), function(req,res){
 	console.log(req.body); //form fields
-	console.log(req.file); //form files
+	console.log(req.file.filename); //form files
 	res.status(204).end();
 });
 
