@@ -1,0 +1,14 @@
+Prototype 2 of the Tetranucleotide Frequency Viewer
+CSUSB, Spring 2016
+
+Uses three.js as the main WebGL implementation library
+
+To-Do:
+1) Figure out the three.js grid system, things aren't quite to scale.
+2) Set up grid system on cube faces
+4) Get input from the CSV file
+
+Done: 
+1) Basic Graph Set-Up
+2) Toggle Layers On and Off
+
