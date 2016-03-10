@@ -1,3 +1,80 @@
+/*
+var camera;
+var scene;
+var renderer;
+var mesh;
+  
+init();
+animate();
+  
+function init() {
+  
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+
+
+    var light = new THREE.DirectionalLight( 0xffffff );
+    light.position.set( 0, 1, 1 ).normalize();
+    scene.add(light);
+  
+    var geometry = new THREE.BoxGeometry( 50, 50, 50);
+    var material = new THREE.MeshBasicMaterial( {
+     map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+     side: THREE.Doubleside,
+     transparent: false, 
+     opacity: 1000
+ 	});
+
+    var faceCount = geometry.faces.length;
+	for (var i=0; i<(faceCount); i++){
+		if (i==2||i==3||i==6||i==7||i==10||i==11){
+			geometry.faces[i].materialIndex = 0;
+		} else{
+			geometry.faces[i].materialIndex = 1;
+		}
+	}
+
+    mesh = new THREE.Mesh(geometry, material );
+    mesh.position.z = -50;
+    scene.add( mesh );
+
+    camera.position.z = 48.5;
+	camera.position.x = 48.5;
+	camera.rotation.y = 0.529269912; //PI/8
+
+ 
+    renderer = new THREE.WebGLRenderer();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
+  
+    window.addEventListener( 'resize', onWindowResize, false );
+  
+    render();
+}
+  
+function animate() {
+    mesh.rotation.x += .04;
+    mesh.rotation.y += .02;
+  
+    render();
+
+    // stop animation by commenting this out
+    requestAnimationFrame( animate );
+}
+  
+function render() {
+    renderer.render( scene, camera );
+}
+  
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    render();
+}
+
+*/
+
 //scene and camera
 var scene = new THREE.Scene(); 
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
@@ -13,6 +90,18 @@ materials = [
 	new THREE.MeshBasicMaterial({color: 0xeef5e1, side: THREE.DoubleSide}),
 	new THREE.MeshBasicMaterial({transparent: true, opacity: 0})
 ];
+
+
+var material = new THREE.MeshBasicMaterial( {
+map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+//color: 0xeef5e1,
+//side: THREE.Doubleside,
+transparent: true, 
+opacity: 1
+});
+
+
+
 //graph consists of faces 2,3,6,7,10,11
 var faceCount = geometry.faces.length;
 for (var i=0; i<(faceCount); i++){
@@ -22,7 +111,9 @@ for (var i=0; i<(faceCount); i++){
 		geometry.faces[i].materialIndex = 1;
 	}
 }
-var cube = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
+
+var cube = new THREE.Mesh(geometry, material);
+
 scene.add(cube);
 camera.position.z = 48.5;
 camera.position.x = 48.5;
