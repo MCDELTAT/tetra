@@ -68,10 +68,12 @@ camera.rotation.y = 0.529269912; //PI/8
 var sphGeometry = new THREE.SphereGeometry(0.25,32,32); 
 var speciesMat1 = new THREE.MeshBasicMaterial({color: 0x84dbfc});
 var speciesMat2 = new THREE.MeshBasicMaterial({color: 0xfa515f});
+var speciesMat3 = new THREE.MeshBasicMaterial({color: 0x6bf35c});
+var speciesMaterials = [speciesMat1,speciesMat2,speciesMat3];
 var pointsStartIndex = 4;
 var tempObject;
-function createSphere(xCoor,yCoor,zCoor){
-	scene.add(new THREE.Mesh(sphGeometry,speciesMat2));
+function createSphere(species,xCoor,yCoor,zCoor){
+	scene.add(new THREE.Mesh(sphGeometry,speciesMaterials[species]));
 	tempObject = scene.getObjectById(pointsStartIndex,true);
 	tempObject.position.set(xCoor/10,yCoor/10,zCoor/10);
 	pointsStartIndex++; //increment the var so next point can be id'ed correctly
@@ -107,8 +109,9 @@ function drawPoints (species, length){
 	//get the first parameter name of each speciesObject
 	var startIndex = Object.keys(speciesArray[species])[0]
 	console.log("The start index of "+species+" is: ",startIndex);
-	for (var i=startIndex; i<(startIndex+length)-1; i++){
-		createSphere(speciesArray[species][i].dim1,speciesArray[species][i].dim2,speciesArray[species][i].dim3);
+	console.log("The range of drawing is from "+startIndex+" to "+(+startIndex+ +length));
+	for (var i=startIndex; i<(+startIndex + +length); i++){
+		createSphere(species,speciesArray[species][i].dim1,speciesArray[species][i].dim2,speciesArray[species][i].dim3);
 	}
 }
 
