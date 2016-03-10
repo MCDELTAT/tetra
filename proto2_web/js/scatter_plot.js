@@ -85,7 +85,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 //set up the cube, apply face visibility to half of the faces
-var geometry = new THREE.BoxGeometry(50,50,50);
+var geometry = new THREE.CubeGeometry(50,50,50);
 materials = [
 	new THREE.MeshBasicMaterial({color: 0xeef5e1, side: THREE.DoubleSide}),
 	new THREE.MeshBasicMaterial({transparent: true, opacity: 0})
@@ -101,6 +101,61 @@ opacity: 1
 });
 
 
+var materials = [
+       new THREE.MeshBasicMaterial({ //right
+           map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+           transparent: true, 
+           side: THREE.DoubleSide,
+		   opacity: 0 //appears when one, transparent when invisible
+       }),
+       new THREE.MeshBasicMaterial({
+           map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+           transparent: false, 
+           side: THREE.DoubleSide,
+		   opacity: 0
+       }),
+       new THREE.MeshBasicMaterial({
+           map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+           transparent: true, 
+           side: THREE.DoubleSide,
+		   opacity: 0
+       }),
+       new THREE.MeshBasicMaterial({
+           map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+           transparent: false, 
+           side: THREE.DoubleSide,
+		   opacity: 0
+       }),
+       new THREE.MeshBasicMaterial({ //left
+           //map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+           transparent: true,
+           side: THREE.DoubleSide,
+           opacity: 0
+       }),
+       new THREE.MeshBasicMaterial({
+           map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+           transparent: false, 
+           side: THREE.DoubleSide,
+		   opacity: 1
+       })
+    ];
+
+    graph = new THREE.Mesh(geometry, 
+    	new THREE.MeshFaceMaterial(materials)) ;
+
+    scene.add(graph);
+
+
+
+
+
+
+
+
+
+/*
+
+//
 
 //graph consists of faces 2,3,6,7,10,11
 var faceCount = geometry.faces.length;
@@ -113,11 +168,15 @@ for (var i=0; i<(faceCount); i++){
 }
 
 var cube = new THREE.Mesh(geometry, material);
-
 scene.add(cube);
+*/
+
+
 camera.position.z = 48.5;
 camera.position.x = 48.5;
 camera.rotation.y = 0.529269912; //PI/8
+
+
 
 //function to generate spheres at coordinates
 //three.js Objects all have an incremental id
