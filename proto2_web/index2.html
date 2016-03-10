@@ -11,7 +11,9 @@
     <body>
         <script src="js/papaparse.min.js"></script>
         <script src="js/jquery-2.2.1.js"></script>
+         <script src="js/three.min.js"></script>
         <script src="js/parser.js"></script>
+        <script src="js/scatter_plot.js"></script>
         <script>
         	var data;
 
@@ -26,6 +28,12 @@
 								verifyObject();
 								getMinMax();
 								createSpeciesObjects();
+                                var sp1Length = getSpeciesLength(0);
+                                drawPoints(0, sp1Length);
+                                var sp2Length = getSpeciesLength(1);
+                                drawPoints(1, sp2Length);
+                                var sp3Length = getSpeciesLength(2);
+                                drawPoints(2, sp3Length);
 							}
 						});
 					}
