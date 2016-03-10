@@ -8,25 +8,59 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 //set up the cube, apply face visibility to half of the faces
-var geometry = new THREE.BoxGeometry(50,50,50);
-materials = [
-	new THREE.MeshBasicMaterial({color: 0xeef5e1, side: THREE.DoubleSide}),
-	new THREE.MeshBasicMaterial({transparent: true, opacity: 0})
-];
-//graph consists of faces 2,3,6,7,10,11
-var faceCount = geometry.faces.length;
-for (var i=0; i<(faceCount); i++){
-	if (i==2||i==3||i==6||i==7||i==10||i==11){
-		geometry.faces[i].materialIndex = 0;
-	} else{
-		geometry.faces[i].materialIndex = 1;
-	}
-}
-var cube = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
-scene.add(cube);
+var geometry = new THREE.CubeGeometry(50,50,50);
+
+//color: 0xeef5e1,
+
+var materials = [
+       new THREE.MeshBasicMaterial({ //right
+           map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+           transparent: true, 
+           side: THREE.DoubleSide,
+		   opacity: 0
+       }),
+       new THREE.MeshBasicMaterial({
+           map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+           transparent: false, 
+           side: THREE.DoubleSide,
+		   opacity: 0
+       }),
+       new THREE.MeshBasicMaterial({
+           map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+           transparent: true, 
+           side: THREE.DoubleSide,
+		   opacity: 0
+       }),
+       new THREE.MeshBasicMaterial({
+           map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+           transparent: false, 
+           side: THREE.DoubleSide,
+		   opacity: 0
+       }),
+       new THREE.MeshBasicMaterial({ //left
+           //map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+           transparent: true,
+           side: THREE.DoubleSide,
+           opacity: 0
+       }),
+       new THREE.MeshBasicMaterial({
+           map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+           transparent: false, 
+           side: THREE.DoubleSide,
+		   opacity: 1
+       })
+    ];
+
+    graph = new THREE.Mesh(geometry, 
+    	new THREE.MeshFaceMaterial(materials)) ;
+
+    scene.add(graph);
+
 camera.position.z = 48.5;
 camera.position.x = 48.5;
 camera.rotation.y = 0.529269912; //PI/8
+
+
 
 //function to generate spheres at coordinates
 //three.js Objects all have an incremental id
@@ -106,5 +140,6 @@ species1Btn.addEventListener("click", function(){changeVisible(4,8); });
 function render() {
 	requestAnimationFrame(render);
 	renderer.render(scene,camera);
+	//camera.position.y += .001;
 }
 render();
