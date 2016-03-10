@@ -9,20 +9,8 @@ document.body.appendChild(renderer.domElement);
 
 //set up the cube, apply face visibility to half of the faces
 var geometry = new THREE.CubeGeometry(50,50,50);
-materials = [
-	new THREE.MeshBasicMaterial({color: 0xeef5e1, side: THREE.DoubleSide}),
-	new THREE.MeshBasicMaterial({transparent: true, opacity: 0})
-];
 
-
-var material = new THREE.MeshBasicMaterial( {
-map: THREE.ImageUtils.loadTexture('textures/pps.png'),
 //color: 0xeef5e1,
-//side: THREE.Doubleside,
-transparent: true, 
-opacity: 1
-});
-
 
 var materials = [
        new THREE.MeshBasicMaterial({ //right
