@@ -1,6 +1,10 @@
 //scene and camera
+
+
 var scene = new THREE.Scene(); 
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+var cameraControls;
+var clock = new THREE.Clock();
 
 //set up the renderer
 var renderer = new THREE.WebGLRenderer();
@@ -8,6 +12,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 //set up the cube, apply face visibility to half of the faces
+
 var geometry = new THREE.CubeGeometry(50,50,50);
 
 //color: 0xeef5e1,
@@ -23,7 +28,7 @@ var materials = [
            map: THREE.ImageUtils.loadTexture('textures/pps.png'),
            transparent: false, 
            side: THREE.DoubleSide,
-		   opacity: 0
+		   opacity: 1
        }),
        new THREE.MeshBasicMaterial({
            map: THREE.ImageUtils.loadTexture('textures/pps.png'),
@@ -35,7 +40,7 @@ var materials = [
            map: THREE.ImageUtils.loadTexture('textures/pps.png'),
            transparent: false, 
            side: THREE.DoubleSide,
-		   opacity: 0
+		   opacity: 1
        }),
        new THREE.MeshBasicMaterial({ //left
            //map: THREE.ImageUtils.loadTexture('textures/pps.png'),
@@ -60,8 +65,18 @@ camera.position.z = 48.5;
 camera.position.x = 48.5;
 camera.rotation.y = 0.529269912; //PI/8
 
+//camera.rotation.y = 0.529269912; //PI/8
+cameraControls = new THREE.TrackballControls(camera, renderer.domElement);
+cameraControls.target.set(0, 0, 0);
+//scene.add(camera);
+function animate(){
+	var delta = clock.getDelta();
+	requestAnimationFrame(animate);
+	cameraControls.update(delta);
+	renderer.render(scene,camera);
+	//stats.update();
 
-
+}
 //function to generate spheres at coordinates
 //three.js Objects all have an incremental id
 //in this case, the spheres are id:4 onward (scene=1,cam=2,grid=3)
@@ -97,6 +112,7 @@ function changeVisible(startRange, stopRange){
 	}
 }
 
+ 
 function getSpeciesLength(speciesID){
 	var length = 0;
 	var length = Object.keys(speciesArray[speciesID]).length;
@@ -115,6 +131,7 @@ function drawPoints (species, length){
 	}
 }
 
+
 //create a button to toggle on and off the species
 var species1Btn = document.createElement("BUTTON");
 var t1 = document.createTextNode("CLICK ME: SP1");
@@ -126,6 +143,7 @@ species1Btn.addEventListener("click", function(){changeVisible(4,8); });
 function render() {
 	requestAnimationFrame(render);
 	renderer.render(scene,camera);
-	//camera.position.y += .001;
 }
-render();
+//render();
+animate();
+
