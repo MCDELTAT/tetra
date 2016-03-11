@@ -1,7 +1,9 @@
 //scene and camera
+
 var scene = new THREE.Scene(); 
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-
+var cameraControls;
+var clock = new THREE.Clock();
 //set up the renderer
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -26,8 +28,18 @@ var cube = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
 scene.add(cube);
 camera.position.z = 48.5;
 camera.position.x = 48.5;
-camera.rotation.y = 0.529269912; //PI/8
+//camera.rotation.y = 0.529269912; //PI/8
+cameraControls = new THREE.TrackballControls(camera, renderer.domElement);
+cameraControls.target.set(0, 0, 0);
+//scene.add(camera);
+function animate(){
+	var delta = clock.getDelta();
+	requestAnimationFrame(animate);
+	cameraControls.update(delta);
+	renderer.render(scene,camera);
+	//stats.update();
 
+}
 //function to generate spheres at coordinates
 //three.js Objects all have an incremental id
 //in this case, the spheres are id:4 onward (scene=1,cam=2,grid=3)
@@ -99,10 +111,6 @@ createSphere(species1.contig5.xCoor,species1.contig5.yCoor,species1.contig5.zCoo
 var species1Btn = document.createElement("BUTTON");
 var t1 = document.createTextNode("CLICK ME: SP1");
 species1Btn.appendChild(t1);
-species1Btn.style.position = "fixed"
-species1Btn.style.top =  (screen.height/7)+'px'
-species1Btn.style.left = (screen.width/2.75)+'px'
-species1Btn.appendChild(t1);
 document.body.appendChild(species1Btn);
 //add the event listener
 species1Btn.addEventListener("click", function(){changeVisible(4,8); });
@@ -111,4 +119,5 @@ function render() {
 	requestAnimationFrame(render);
 	renderer.render(scene,camera);
 }
-render();
+//render();
+animate();
