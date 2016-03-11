@@ -28,7 +28,7 @@ var materials = [
            map: THREE.ImageUtils.loadTexture('textures/pps.png'),
            transparent: false, 
            side: THREE.DoubleSide,
-		   opacity: 0
+		   opacity: 1
        }),
        new THREE.MeshBasicMaterial({
            map: THREE.ImageUtils.loadTexture('textures/pps.png'),
@@ -40,7 +40,7 @@ var materials = [
            map: THREE.ImageUtils.loadTexture('textures/pps.png'),
            transparent: false, 
            side: THREE.DoubleSide,
-		   opacity: 0
+		   opacity: 1
        }),
        new THREE.MeshBasicMaterial({ //left
            //map: THREE.ImageUtils.loadTexture('textures/pps.png'),
