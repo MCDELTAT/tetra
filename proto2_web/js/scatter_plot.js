@@ -28,7 +28,7 @@ var materials = [
            map: THREE.ImageUtils.loadTexture('textures/pps.png'),
            transparent: false, 
            side: THREE.DoubleSide,
-		   opacity: 1
+		   opacity: 0
        }),
        new THREE.MeshBasicMaterial({
            map: THREE.ImageUtils.loadTexture('textures/pps.png'),
@@ -40,13 +40,13 @@ var materials = [
            map: THREE.ImageUtils.loadTexture('textures/pps.png'),
            transparent: false, 
            side: THREE.DoubleSide,
-		   opacity: 1
+		   opacity: 0
        }),
        new THREE.MeshBasicMaterial({ //left
            //map: THREE.ImageUtils.loadTexture('textures/pps.png'),
            transparent: true,
            side: THREE.DoubleSide,
-           opacity: 0 //stay 0
+           opacity: 0
        }),
        new THREE.MeshBasicMaterial({
            map: THREE.ImageUtils.loadTexture('textures/pps.png'),
@@ -112,7 +112,7 @@ function changeVisible(startRange, stopRange){
 	}
 }
 
-
+ 
 function getSpeciesLength(speciesID){
 	var length = 0;
 	var length = Object.keys(speciesArray[speciesID]).length;
