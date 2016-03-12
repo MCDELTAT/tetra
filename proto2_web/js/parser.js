@@ -73,7 +73,8 @@ function createSpeciesObjects(){
 		//speciesArray[speciesCount] is object, as above, add data entry to that species object.
 		speciesArray[speciesCount][i] = data.data[i];
 	}
-	console.log("The contents of array are: \n",speciesArray[0]); //method access single species obj.
+	console.log("The contents of array are: \n",speciesArray[1]); //method access single species obj.
+	console.log("The contents of array are: \n",speciesArray[2]); //method access single species obj.
 	console.log("The value of speciesCount is: ",(speciesCount+1));
 
 	return speciesArray;
