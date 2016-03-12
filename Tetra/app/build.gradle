@@ -6,7 +6,11 @@ android {
 
     defaultConfig {
         applicationId "csusb.cse.tetra"
+<<<<<<< HEAD:Tetra/app/build.gradle
+        minSdkVersion 21
+=======
         minSdkVersion 22
+>>>>>>> 746cd26bfbc07e84d6fe6d85f12139187984918d:Tetra/app/build.gradle
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
