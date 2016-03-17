@@ -6,12 +6,11 @@ Uses three.js as the main WebGL implementation library
 To run the app, simply open index.html, or build the app which redirects to the hosted version of the files.
 
 To-Do:
-1) Rebuild web-view to use onShowFileChooser to select files.
-2) Figure out the three.js grid system, things aren't quite to scale.
-3) Set up grid system on cube faces
+1) Figure out the three.js grid system, things aren't quite to scale.
+2) Set up grid system on cube faces
 
 Done: 
 1) Basic Graph Set-Up
 2) Toggle Layers On and Off
 3) Get input from the CSV file
-
+4) Rebuild web-view to use onShowFileChooser to select files.
