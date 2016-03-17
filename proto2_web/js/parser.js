@@ -68,7 +68,6 @@ function createSpeciesObjects(){
 			speciesName1 = data.data[i].Organism; 
 			speciesArray.push(new Object())
 			speciesCount++; //start the count at zero.
-			console.log(typeof speciesName1);
 		}
 		//speciesArray[speciesCount] is object, as above, add data entry to that species object.
 		speciesArray[speciesCount][i] = data.data[i];
