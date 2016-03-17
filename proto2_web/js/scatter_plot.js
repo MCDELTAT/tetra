@@ -11,12 +11,13 @@ camera.position.z = 75;
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-
+//window.parent.yourVaraibleName.graphMaxima["xMax"]
 //set up the cube, apply face visibility to half of the faces
-var geometry = new THREE.CubeGeometry(50,50,50);
+//var 
+var geometry = new THREE.CubeGeometry(100,100,100);
 
 //color: 0xeef5e1,
-
+//THREE.ImageUtils.crossOrigin = '';
 var materials = [
        new THREE.MeshBasicMaterial({ //right
            map: THREE.ImageUtils.loadTexture('textures/pps.png'),
@@ -59,13 +60,20 @@ var materials = [
     graph = new THREE.Mesh(geometry, 
     	new THREE.MeshFaceMaterial(materials)) ;
 
-    scene.add(graph);
+scene.add(graph);
 cameraControls = new THREE.TrackballControls(camera, renderer.domElement);
-cameraControls.target.set(0, 0, 0);
-camera.position.z = 48.5;
-camera.position.x = 48.5;
+//cameraControls.target.set(0, 0, 0);
+cameraControls.minDistance =10.5;
+cameraControls.maxDistance = 135.0;
+camera.position.z = 110.5;
+camera.position.x = 110.5;
 camera.rotation.y = 0.529269912; //PI/8
 
+function scale(x, y ,z){
+  graph.geometry.scale.x = x;
+  graph.geometry.scale.y = y;
+  graph.geometry.scale.z = z;
+}
 
 
 //function to generate spheres at coordinates
@@ -81,7 +89,7 @@ var tempObject;
 function createSphere(species,xCoor,yCoor,zCoor){
 	scene.add(new THREE.Mesh(sphGeometry,speciesMaterials[species]));
 	tempObject = scene.getObjectById(pointsStartIndex,true);
-	tempObject.position.set(xCoor/10,yCoor/10,zCoor/10);
+	tempObject.position.set(xCoor/12,yCoor/10,zCoor/10);
 	pointsStartIndex++; //increment the var so next point can be id'ed correctly
 }
 

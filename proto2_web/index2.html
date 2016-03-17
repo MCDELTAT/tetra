@@ -15,11 +15,11 @@
         <script src="js/papaparse.min.js"></script>
         <script src="js/jquery-2.2.1.js"></script>
         <script src="js/parser.js"></script>
-        <script src="js/scatter_plot.js"></script>
+        
 
         <script>
         	var data;
-
+                var minMax
 					function handleFileSelect(evt){
 						var file = evt.target.files[0];
 
@@ -30,21 +30,27 @@
 								data = results;
 								verifyObject();
 								getMinMax();
-								createSpeciesObjects();
+                                createSpeciesObjects();
                                 var sp1Length = getSpeciesLength(0);
                                 drawPoints(0, sp1Length);
                                 var sp2Length = getSpeciesLength(1);
                                 drawPoints(1, sp2Length);
                                 var sp3Length = getSpeciesLength(2);
-                                drawPoints(2, sp3Length);
-							}
+                                drawPoints(2, sp3Length); 
+
+                            }
 						});
-					}
+					   scale((Object.keys(graphMaxima["xMax"])-Object.keys(graphMaxima["xMin"])),(Object.keys(graphMaxima["yMax"])-Object.keys(graphMaxima["yMin"])),(Object.keys(graphMaxima["zMax"])-Object.keys(graphMaxima["zMin"])));
+                    }
+
 
 					$(document).ready(function(){
 						$("#csv-file").change(handleFileSelect);
+
 					});
         </script>
         <input type="file" id="csv-file" name="files" />
+         <script defer src="js/scatter_plot.js"></script>
+
     </body>
 </html>
