@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Tetra</string>
+<<<<<<< HEAD
+=======
+    <string name="choose_upload" />
+>>>>>>> refs/remotes/origin/moseleyBranch
 </resources>
