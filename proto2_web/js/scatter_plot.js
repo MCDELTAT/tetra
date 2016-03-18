@@ -80,9 +80,9 @@ function scale(x, y ,z){
   console.log("y=:",y);
   console.log("z=:",z);
   //cameraControls.minDistance = 110.5;
-  cameraControls.maxDistance = x+y+z*5;
-  camera.position.z =  x+y+z*2;
-  camera.position.x =  x+y+z*2;
+  cameraControls.maxDistance = x/4;
+  camera.position.z =  z/7;
+  camera.position.x =  x/7;
 }
 
 
