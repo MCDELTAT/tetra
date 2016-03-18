@@ -29,7 +29,7 @@
 							complete: function(results){
 								data = results;
 								verifyObject();
-								getMinMax();
+								minMax = getMinMax();
                                 createSpeciesObjects();
                                 var sp1Length = getSpeciesLength(0);
                                 drawPoints(0, sp1Length);
@@ -40,7 +40,7 @@
 
                             }
 						});
-					   scale((Object.keys(graphMaxima["xMax"])-Object.keys(graphMaxima["xMin"])),(Object.keys(graphMaxima["yMax"])-Object.keys(graphMaxima["yMin"])),(Object.keys(graphMaxima["zMax"])-Object.keys(graphMaxima["zMin"])));
+					   scale(minMax["xMax"]-minMax["xMin"],minMax["yMax"]-minMax["yMin"],minMax["zMax"]-minMax["zMin"]);
                     }
 
 

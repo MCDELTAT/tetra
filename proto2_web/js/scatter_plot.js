@@ -63,16 +63,26 @@ var materials = [
 scene.add(graph);
 cameraControls = new THREE.TrackballControls(camera, renderer.domElement);
 //cameraControls.target.set(0, 0, 0);
-cameraControls.minDistance =10.5;
+cameraControls.minDistance = 10.5;
 cameraControls.maxDistance = 135.0;
 camera.position.z = 110.5;
 camera.position.x = 110.5;
 camera.rotation.y = 0.529269912; //PI/8
+cameraControls.noPan = false;
+
+cameraControls.staticMoving = false;
 
 function scale(x, y ,z){
   graph.geometry.scale.x = x;
   graph.geometry.scale.y = y;
   graph.geometry.scale.z = z;
+  console.log("x=:",x);
+  console.log("y=:",y);
+  console.log("z=:",z);
+  //cameraControls.minDistance = 110.5;
+  cameraControls.maxDistance = x+y+z*5;
+  camera.position.z =  x+y+z*2;
+  camera.position.x =  x+y+z*2;
 }
 
 
@@ -86,6 +96,7 @@ var speciesMat3 = new THREE.MeshBasicMaterial({color: 0x6bf35c});
 var speciesMaterials = [speciesMat1,speciesMat2,speciesMat3];
 var pointsStartIndex = 4;
 var tempObject;
+
 function createSphere(species,xCoor,yCoor,zCoor){
 	scene.add(new THREE.Mesh(sphGeometry,speciesMaterials[species]));
 	tempObject = scene.getObjectById(pointsStartIndex,true);
@@ -142,6 +153,7 @@ function render() {
 	renderer.render(scene,camera);
 	//camera.position.y += .001;
 }
+
 function animate() {
     
         var delta = clock.getDelta();
