@@ -91,8 +91,8 @@ var visibilityRange = [];
 visibilityRange.push(4); //push starting index value into the array
 function getVisibilityRange(){
 	for (var i=1; i<=speciesArray.length; i++){
-		//console.log("Adding previous value and species length is: ",speciesLengths[i-1])
-		visibilityRange.push(((visibilityRange[(visibilityRange.length)-1])+speciesLengths[i-1])-1) //add the length of species to the last entry in the array
+		//note that this causes a one-off error. For each group after 1, there will be 1*(n-1) points not included in the graph
+		visibilityRange.push(((visibilityRange[(visibilityRange.length)-1])+speciesLengths[i-1])) //add the length of species to the last entry in the array
 	}
 }
 
@@ -100,18 +100,20 @@ function getVisibilityRange(){
 //speciesNumber is an integer that selects which data points from visibilityRange[] to use.
 function changeVisible(speciesNumber){
 	console.log("The visibility has been changed.")
-	getVisibilityRange(); //generate the ranges for the visibility function.
-	//console.log("The visibility ranges are: ",visibilityRange);
+	console.log("The visibility ranges are: ",visibilityRange);
 	var startRange = visibilityRange[speciesNumber];
 	var stopRange = visibilityRange[speciesNumber+1];
 	var visibilityState = scene.getObjectById(startRange,true).visible;
+	//debug-->actual needed values: blue 4 to 202, red 203 to 402, green 403 to 932
+	console.log("The start of blue is "+startRange+" the stop range is: "+(stopRange-speciesNumber));
 	if (visibilityState==true){
-			for (var i=startRange; i<=stopRange; i++){
+			//compensate for the above one-off error in the loop stop condition
+			for (var i=startRange; i<=(stopRange-1); i++){
 				scene.getObjectById(startRange,true).visible = false;
 				startRange++;
 			}
 	} else if (visibilityState==false){
-		for (var i=startRange; i<=stopRange; i++){
+		for (var i=startRange; i<=(stopRange-1); i++){
 			scene.getObjectById(startRange,true).visible = true;
 			startRange++;
 		}

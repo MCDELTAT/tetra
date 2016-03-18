@@ -32,16 +32,11 @@
 								createSpeciesObjects();
                                 //for # of species in SpeciesArray, calculate the lengths
                                 getSpeciesLength();
+                                getVisibilityRange(); //generate the ranges for the visibility function.
                                 //for # of species, draw them all.
-                                console.log("Inside index.html, speciesLengths[0] is: ",speciesLengths[0]);
                                 for (var i=0; i<speciesArray.length; i++){
                                    drawPoints(i, speciesLengths[i]); 
                                 }
-                                /*drawPoints(0, speciesLengths);
-                                var sp2Length = getSpeciesLength(1);
-                                drawPoints(1, sp2Length);
-                                var sp3Length = getSpeciesLength(2);
-                                drawPoints(2, sp3Length);*/
 							}
 						});
 					}
