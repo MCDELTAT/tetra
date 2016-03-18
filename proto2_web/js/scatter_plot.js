@@ -6,8 +6,6 @@ var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeigh
 var cameraControls;
 var clock = new THREE.Clock();
 
-camera.position.z = 75;
-
 //set up the renderer
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -69,6 +67,43 @@ cameraControls.target.set(0, 0, 0);
 camera.position.z = 48.5;
 camera.position.x = 48.5;
 camera.rotation.y = 0.529269912; //PI/8
+
+console.log(camera.quaternion);
+
+//--> none of the camera reset code below works. If you console.log(camera) you
+//can see all properties at start. try resetting from that.
+//determine the default camera position so we can reset to it.
+var cameraDefaults = {
+	"aspect": 1.6801242236024845,
+	"zoom": 1,
+	"position": 0,
+	"rotation": 0,
+	"xPos": 48.5,
+	"yPos": 0,
+	"zPos": 48.5,
+	"xRot": 0,
+	"yRot": 0.7853981462831774,
+	"zRot": 0,
+	"xQuat": 0, //fill in the XQuats
+	"yQuat": camera.quaternion._y,
+	"zQuat": 0,
+	"wQuat": camera.quaternion._w
+};
+
+function setCameraDefaults (){
+	cameraDefaults.position = camera.position;
+	cameraDefaults.rotation = camera.rotation;
+}
+
+function resetCamera(){
+	console.log("inside reset camera ",cameraDefaults.position);
+	camera.position = cameraDefaults.position;
+	camera.rotation = cameraDefaults.rotation;
+	/*camera.quaternion._x = cameraDefaults.xQuat;
+	camera.quaternion._y = cameraDefaults.yQuat;
+	camera.quaternion._z = cameraDefaults.zQuat;
+	camera.quaternion._w = cameraDefaults.wQuat;*/
+}
 
 //function to generate spheres at coordinates
 //three.js Objects all have an incremental id
@@ -167,6 +202,14 @@ species3Btn.appendChild(t3);
 document.body.appendChild(species3Btn);
 //add the event listener
 species3Btn.addEventListener("click", function(){changeVisible(2);});
+
+//create a button to reset the camera
+var camReset = document.createElement("BUTTON");
+var t4 = document.createTextNode("Reset Camera");
+camReset.appendChild(t4);
+document.body.appendChild(camReset);
+//add the event listener
+camReset.addEventListener("click", resetCamera);
 
 function render() {
 	requestAnimationFrame(render);

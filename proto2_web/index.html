@@ -17,6 +17,8 @@
         <script src="js/parser.js"></script>
         <script src="js/scatter_plot.js"></script>
         <script>
+        window.onload = setCameraDefaults;
+        console.log("Inside html root: ",cameraDefaults);
         	var data;
 
 					function handleFileSelect(evt){

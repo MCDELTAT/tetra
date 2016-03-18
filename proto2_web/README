@@ -7,7 +7,10 @@ To run the app, simply open index.html, or build the app which redirects to the 
 
 To-Do:
 1) Figure out the three.js grid system, things aren't quite to scale.
-2) Set up grid system on cube faces
+2) Axis labels
+3) Get the buttons to generate on their own. --> Abstract.
+4) CSS Stuff. Bar across top with 3 buttons: open file, layer select panel, camera reset.
+4) Hide graph walls when camera is obstructed (water demo).
 
 Done: 
 1) Basic Graph Set-Up
