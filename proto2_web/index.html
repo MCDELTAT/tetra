@@ -7,10 +7,29 @@
         <title>Tetra</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="author" href="humans.txt">
+        <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     </head>
     <body>
+        <h3 class="full-width">
+            <div class="wrap">Tetra</div>
+            <!--Buttons for: Open file, Layer Select Panel, Reset Camera -->
+            <div class="btn-group pull-right" role="group" aria-label="...">
+                <span class="btn btn-default btn-file">Open File<input type="file" id="csv-file" name="files" /></span>
+                <button type="button" class="btn btn-default glyphicon glyphicon-list-alt" aria-hidden="true" id="showList"></button>
+                <button type="button" class="btn btn-default glyphicon glyphicon-facetime-video" aria-hidden="true" id="cameraReset"></button>
+            </div>
+        </h3>
+
+        <div class="hidden-list hidden pull-right" id="spList">
+        </div>
+
         <script src="js/papaparse.min.js"></script>
-        <script src="js/jquery-2.2.1.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/TrackballControls.js"> </script>
         <script src="js/JSONLoader.js"> </script>
@@ -19,34 +38,50 @@
         <script>
         window.onload = setCameraDefaults;
         console.log("Inside html root: ",cameraDefaults);
-        	var data;
+        	var data; //to store raw parsed data
+            var visible = false; //visibility state of list
 
-					function handleFileSelect(evt){
-						var file = evt.target.files[0];
+            //on file input event (change), parse the file
+			function handleFileSelect(evt){
+				var file = evt.target.files[0];
 
-						Papa.parse(file, {
-							header: true,
-							dynamicTyping: true,
-							complete: function(results){
-								data = results;
-								verifyObject();
-								getMinMax();
-								createSpeciesObjects();
-                                //for # of species in SpeciesArray, calculate the lengths
-                                getSpeciesLength();
-                                getVisibilityRange(); //generate the ranges for the visibility function.
-                                //for # of species, draw them all.
-                                for (var i=0; i<speciesArray.length; i++){
-                                   drawPoints(i, speciesLengths[i]); 
-                                }
-							}
-						});
+				Papa.parse(file, {
+					header: true,
+					dynamicTyping: true,
+					complete: function(results){
+						data = results;
+						verifyObject();
+						getMinMax();
+						createSpeciesObjects();
+                        //for # of species in SpeciesArray, calculate the lengths
+                        getSpeciesLength();
+                        getVisibilityRange(); //generate the ranges for the visibility function.
+                        //for # of species, draw them all.
+                        for (var i=0; i<speciesArray.length; i++){
+                           drawPoints(i, speciesLengths[i]); 
+                        }
 					}
+				});
+			}
 
-					$(document).ready(function(){
-						$("#csv-file").change(handleFileSelect);
-					});
+			$(document).ready(function(){
+				$("#csv-file").change(handleFileSelect);
+			});
+
+            //on clicking the list button, toggle visibility of speciesList
+            function changeListVisibility() {
+                var list = document.getElementById("spList");
+                if (visible == false){
+                    list.className = "hidden-list show pull-right";
+                    visible = true;
+                } else if (visible == true) {
+                    list.className = "hidden-list hidden";
+                    visible = false;
+                }
+            }
+
+            var visibilityButton = document.getElementById("showList");
+            visibilityButton.addEventListener("click", changeListVisibility);
         </script>
-        <input type="file" id="csv-file" name="files" />
     </body>
 </html>

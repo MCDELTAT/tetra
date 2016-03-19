@@ -179,36 +179,38 @@ function drawPoints (species, length){
 	}
 }
 
+var hiddenList = document.getElementById("spList");
 //create a button to toggle on and off species 1
 var species1Btn = document.createElement("BUTTON");
-var t1 = document.createTextNode("CLICK ME: SP1");
+var t1 = document.createTextNode("Species 1 Visibility");
 species1Btn.appendChild(t1);
-document.body.appendChild(species1Btn);
+hiddenList.appendChild(species1Btn);
+//add line breaks to space buttons out
+hiddenList.appendChild(document.createElement("br"));
+hiddenList.appendChild(document.createElement("br"));
 //add the event listener
 species1Btn.addEventListener("click", function(){changeVisible(0);});
 
 //create a button to toggle on and off species 2
 var species2Btn = document.createElement("BUTTON");
-var t2 = document.createTextNode("CLICK ME: SP2");
+var t2 = document.createTextNode("Species 2 Visibility");
 species2Btn.appendChild(t2);
-document.body.appendChild(species2Btn);
+hiddenList.appendChild(species2Btn);
+hiddenList.appendChild(document.createElement("br"));
+hiddenList.appendChild(document.createElement("br"));
 //add the event listener
 species2Btn.addEventListener("click", function(){changeVisible(1);});
 
 //create a button to toggle on and off species 2
 var species3Btn = document.createElement("BUTTON");
-var t3 = document.createTextNode("CLICK ME: SP3");
+var t3 = document.createTextNode("Species 3 Visibility");
 species3Btn.appendChild(t3);
-document.body.appendChild(species3Btn);
+hiddenList.appendChild(species3Btn);
 //add the event listener
 species3Btn.addEventListener("click", function(){changeVisible(2);});
 
-//create a button to reset the camera
-var camReset = document.createElement("BUTTON");
-var t4 = document.createTextNode("Reset Camera");
-camReset.appendChild(t4);
-document.body.appendChild(camReset);
-//add the event listener
+//set the header button to reset camera function
+var camReset = document.getElementById("cameraReset")
 camReset.addEventListener("click", resetCamera);
 
 function render() {
