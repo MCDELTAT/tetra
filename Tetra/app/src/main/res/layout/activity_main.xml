@@ -9,8 +9,5 @@
         android:id="@+id/webView"
         android:layout_gravity="center_horizontal"
         android:keepScreenOn="false" />
-<<<<<<< HEAD
-=======
 
->>>>>>> refs/remotes/origin/moseleyBranch
 </LinearLayout>

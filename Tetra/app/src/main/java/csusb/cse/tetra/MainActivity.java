@@ -6,11 +6,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-<<<<<<< HEAD
-public class MainActivity extends AppCompatActivity {
-=======
 /*public class MainActivity extends AppCompatActivity {
->>>>>>> refs/remotes/origin/moseleyBranch
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +18,6 @@ public class MainActivity extends AppCompatActivity {
         myWebView.setWebViewClient(new WebViewClient());
         myWebView.loadUrl("http://104.236.178.168/index2.html");
     }
-<<<<<<< HEAD
-}
-=======
 }*/
 import java.io.File;
 import java.lang.reflect.Method;
@@ -57,7 +50,7 @@ public class MainActivity extends Activity {
         WebView webView = (WebView) findViewById(R.id.webView);
 
         initWebView(webView);
-        webView.loadUrl("http://104.236.178.168/index2.html"); // TODO input your url
+        webView.loadUrl("http://104.236.178.168/index.html"); // TODO input your url
 
     }
 
@@ -350,4 +343,3 @@ public class MainActivity extends Activity {
 
     }
 }
->>>>>>> refs/remotes/origin/moseleyBranch
