@@ -1,5 +1,4 @@
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
-
 var container;
  /*******************************Need for camera controls************************************************/ 
 var camera, cameraControls, scene, renderer, mesh;

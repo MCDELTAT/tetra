@@ -40,7 +40,7 @@ function getMinMax() {
 			graphMaxima["zMin"] = data.data[i].dim3;
 			//console.log("New Z-Minimum: ", graphMaxima["zMin"]);
 		}
-		if (data.data[i].dim3 < graphMaxima["zMax"]){
+		if (data.data[i].dim3 > graphMaxima["zMax"]){
 			graphMaxima["zMax"] = data.data[i].dim3;
 			//console.log("New Z-Minimum: ", graphMaxima["zMax"]);
 		}

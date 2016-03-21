@@ -63,11 +63,42 @@ var materials = [
 
 //add trackball controls to the scene.
 cameraControls = new THREE.TrackballControls(camera, renderer.domElement);
-cameraControls.target.set(0, 0, 0);
-camera.position.z = 48.5;
-camera.position.x = 48.5;
+cameraControls.minDistance = 10.5;
+cameraControls.maxDistance = 135.0;
+camera.position.z = 110.5;
+camera.position.x = 110.5;
 camera.rotation.y = 0.529269912; //PI/8
+cameraControls.noPan = true;
 
+cameraControls.staticMoving = false;
+
+function scale(x, y ,z){
+  if(x >= y && x >= z){
+  	graph.scale.x += x;
+  	graph.scale.y += x;
+  	graph.scale.z += x;
+  }
+  else if(y >= x && y >= z){
+  	graph.scale.x += y;
+  	graph.scale.y += y;
+  	graph.scale.z += y;
+  }
+  else if(z >= y && z >= x){
+  	graph.scale.x += z;
+  	graph.scale.y += z;
+  	graph.scale.z += z;
+  }
+  //graph.scale.x += x;
+  //graph.scale.y += y;
+  //graph.scale.z += z;
+  console.log("x=:",x);
+  console.log("y=:",y);
+  console.log("z=:",z);
+  //cameraControls.minDistance = 110.5;
+  cameraControls.maxDistance *=x*2;
+  //camera.position.z =  z/7;
+  camera.position.x *=x  ;
+}
 console.log(camera.quaternion);
 
 //--> none of the camera reset code below works. If you console.log(camera) you
@@ -94,6 +125,7 @@ function setCameraDefaults (){
 	cameraDefaults.position = camera.position;
 	cameraDefaults.rotation = camera.rotation;
 }
+
 
 function resetCamera(){
 	console.log("inside reset camera ",cameraDefaults.position);
@@ -188,6 +220,7 @@ hiddenList.appendChild(species1Btn);
 //add line breaks to space buttons out
 hiddenList.appendChild(document.createElement("br"));
 hiddenList.appendChild(document.createElement("br"));
+
 //add the event listener
 species1Btn.addEventListener("click", function(){changeVisible(0);});
 
@@ -199,6 +232,7 @@ hiddenList.appendChild(species2Btn);
 hiddenList.appendChild(document.createElement("br"));
 hiddenList.appendChild(document.createElement("br"));
 //add the event listener
+
 species2Btn.addEventListener("click", function(){changeVisible(1);});
 
 //create a button to toggle on and off species 2
