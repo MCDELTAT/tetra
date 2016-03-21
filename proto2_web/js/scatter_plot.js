@@ -128,15 +128,35 @@ function setCameraDefaults (){
 
 
 function resetCamera(){
-	console.log("inside reset camera ",cameraDefaults.position);
-	camera.position = cameraDefaults.position;
-	camera.rotation = cameraDefaults.rotation;
-	/*camera.quaternion._x = cameraDefaults.xQuat;
-	camera.quaternion._y = cameraDefaults.yQuat;
-	camera.quaternion._z = cameraDefaults.zQuat;
-	camera.quaternion._w = cameraDefaults.wQuat;*/
-}
 
+console.log("inside reset camera ",cameraDefaults.position);
+    camera.aspect = 1.68;
+    camera.position.z = 110.5;
+    camera.position.x = 110.5;
+    camera.position.y = 0;
+    camera.rotation.x = 0;
+    camera.rotation.y = 0; //PI/8
+    camera.rotation.z = 0;
+    //camera.position = 0;
+    //camera.rotation = 0;
+    camera.quaternion._x = 0;
+    camera.quaternion._y = 0;
+    camera.quaternion._z = 0;
+    //camera.position = cameraDefaults.position;
+    //camera.rotation = cameraDefaults.rotation;
+    /*camera.quaternion._x = cameraDefaults.xQuat;
+    camera.quaternion._y = cameraDefaults.yQuat;
+    camera.quaternion._z = cameraDefaults.zQuat;
+    camera.quaternion._w = cameraDefaults.wQuat;*/
+}
+var mytext = "Hello!";
+var text3d = new THREE.TextGeometry(mytext, {
+    font: "hevletiker"
+});
+text3d.text = mytext; // storing this for later use...
+text3d.computeBoundingBox();
+var textMaterial = new THREE.MeshBasicMaterial({ color: 0xb0bca7, overdraw: true });
+meshArray.push(new THREE.Mesh( text3d, textMaterial ));
 //function to generate spheres at coordinates
 //three.js Objects all have an incremental id
 //in this case, the spheres are id:4 onward (scene=1,cam=2,grid=3)
