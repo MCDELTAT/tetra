@@ -131,7 +131,6 @@ function resetCamera(){
 
 console.log("inside reset camera ",cameraDefaults.position);
     camera.aspect = 1.68;
-    camera.position.z = 110.5;
     camera.position.x = 110.5;
     camera.position.y = 0;
     camera.rotation.x = 0;
@@ -149,14 +148,7 @@ console.log("inside reset camera ",cameraDefaults.position);
     camera.quaternion._z = cameraDefaults.zQuat;
     camera.quaternion._w = cameraDefaults.wQuat;*/
 }
-var mytext = "Hello!";
-var text3d = new THREE.TextGeometry(mytext, {
-    font: "hevletiker"
-});
-text3d.text = mytext; // storing this for later use...
-text3d.computeBoundingBox();
-var textMaterial = new THREE.MeshBasicMaterial({ color: 0xb0bca7, overdraw: true });
-meshArray.push(new THREE.Mesh( text3d, textMaterial ));
+
 //function to generate spheres at coordinates
 //three.js Objects all have an incremental id
 //in this case, the spheres are id:4 onward (scene=1,cam=2,grid=3)
