@@ -97,9 +97,11 @@ function setCameraDefaults (){
 
 function resetCamera(){
 	console.log("inside reset camera ",cameraDefaults.position);
-	camera.position = cameraDefaults.position;
+	var camClone = camera.clone();
+	console.log(camClone);
+	/*camera.position = cameraDefaults.position;
 	camera.rotation = cameraDefaults.rotation;
-	/*camera.quaternion._x = cameraDefaults.xQuat;
+	camera.quaternion._x = cameraDefaults.xQuat;
 	camera.quaternion._y = cameraDefaults.yQuat;
 	camera.quaternion._z = cameraDefaults.zQuat;
 	camera.quaternion._w = cameraDefaults.wQuat;*/
@@ -122,6 +124,8 @@ function createSphere(species,xCoor,yCoor,zCoor){
 	pointsStartIndex++; //increment the var so next point can be id'ed correctly
 }
 
+//function to generate the id numbers of the species in the graph (so they can be toggled on/off)
+//No input parameters, no returns. It adds a start and stop range to to visibilityRange[].
 var visibilityRange = [];
 visibilityRange.push(4); //push starting index value into the array
 function getVisibilityRange(){
@@ -167,7 +171,8 @@ function getSpeciesLength(){
 	console.log("The lengths of the species are: ",speciesLengths);
 }
 
-//draw the graph points. Species will determine color, length= # of points 
+//draw the graph points. 
+//Parameters: Species (int) will determine color, length (int) = # of points 
 function drawPoints (species, length){
 	//get the first parameter name of each speciesObject
 	var startIndex = Object.keys(speciesArray[species])[0];
@@ -179,6 +184,7 @@ function drawPoints (species, length){
 	}
 }
 
+//Add some buttons to the DOM to toggle on off the species.
 var hiddenList = document.getElementById("spList");
 //create a button to toggle on and off species 1
 var species1Btn = document.createElement("BUTTON");
@@ -201,7 +207,7 @@ hiddenList.appendChild(document.createElement("br"));
 //add the event listener
 species2Btn.addEventListener("click", function(){changeVisible(1);});
 
-//create a button to toggle on and off species 2
+//create a button to toggle on and off species 3
 var species3Btn = document.createElement("BUTTON");
 var t3 = document.createTextNode("Species 3 Visibility");
 species3Btn.appendChild(t3);
@@ -213,12 +219,14 @@ species3Btn.addEventListener("click", function(){changeVisible(2);});
 var camReset = document.getElementById("cameraReset")
 camReset.addEventListener("click", resetCamera);
 
+//THREE JS internal function to request the delta changes to frame and render.
 function render() {
 	requestAnimationFrame(render);
 	renderer.render(scene,camera);
 	//camera.position.y += .001;
 }
 
+//THREE JS internal function to draw the frame changes to WebGL context.
 function animate() {
     
         var delta = clock.getDelta();

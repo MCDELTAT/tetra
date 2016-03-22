@@ -1,5 +1,6 @@
 var lineCount;
 
+//Function to verify my file is not corrupt
 function verifyObject(){
 	lineCount = data.data.length;
 	console.log("Line count is: ",lineCount);
@@ -15,6 +16,7 @@ var graphMaxima = {
 };
 
 //get the maxima/minima of each axis (dim)
+//No input paramters, no returns. Modifies graphMaxima[]
 function getMinMax() {
 	for (var i=0; i<lineCount; i++){
 		//if the current lines value is less than the min, it is the new min.
