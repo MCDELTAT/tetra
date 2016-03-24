@@ -99,7 +99,7 @@ function scale(x, y ,z){
   //camera.position.z =  z/7;
   camera.position.x *=x  ;
 }
-console.log(camera.quaternion);
+console.log(camera);
 
 //--> none of the camera reset code below works. If you console.log(camera) you
 //can see all properties at start. try resetting from that.
@@ -128,22 +128,22 @@ function setCameraDefaults (){
 
 
 function resetCamera(){
-
 console.log("inside reset camera ",cameraDefaults.position);
     camera.aspect = 1.68;
+    camera.position.z = 110.5;
     camera.position.x = 110.5;
     camera.position.y = 0;
     camera.rotation.x = 0;
-    camera.rotation.y = 0; //PI/8
+    camera.rotation.y = 0.7853981462831774; //PI/8
     camera.rotation.z = 0;
     //camera.position = 0;
     //camera.rotation = 0;
     camera.quaternion._x = 0;
     camera.quaternion._y = 0;
     camera.quaternion._z = 0;
-    //camera.position = cameraDefaults.position;
-    //camera.rotation = cameraDefaults.rotation;
-    /*camera.quaternion._x = cameraDefaults.xQuat;
+    /*camera.position = cameraDefaults.position;
+    camera.rotation = cameraDefaults.rotation;
+    camera.quaternion._x = cameraDefaults.xQuat;
     camera.quaternion._y = cameraDefaults.yQuat;
     camera.quaternion._z = cameraDefaults.zQuat;
     camera.quaternion._w = cameraDefaults.wQuat;*/
@@ -230,9 +230,11 @@ function drawPoints (species, length){
 var hiddenList = document.getElementById("spList");
 //create a button to toggle on and off species 1
 var species1Btn = document.createElement("BUTTON");
-var t1 = document.createTextNode("Species 1 Visibility");
+var t1 = document.createTextNode("Aqui");
 species1Btn.appendChild(t1);
 hiddenList.appendChild(species1Btn);
+var sp1btn = hiddenList.childNodes[1];
+sp1btn.id = "btn1";
 //add line breaks to space buttons out
 hiddenList.appendChild(document.createElement("br"));
 hiddenList.appendChild(document.createElement("br"));
@@ -242,9 +244,11 @@ species1Btn.addEventListener("click", function(){changeVisible(0);});
 
 //create a button to toggle on and off species 2
 var species2Btn = document.createElement("BUTTON");
-var t2 = document.createTextNode("Species 2 Visibility");
+var t2 = document.createTextNode("Cren");
 species2Btn.appendChild(t2);
 hiddenList.appendChild(species2Btn);
+var sp2btn = hiddenList.childNodes[4];
+sp2btn.id = "btn2";
 hiddenList.appendChild(document.createElement("br"));
 hiddenList.appendChild(document.createElement("br"));
 //add the event listener
@@ -253,9 +257,11 @@ species2Btn.addEventListener("click", function(){changeVisible(1);});
 
 //create a button to toggle on and off species 2
 var species3Btn = document.createElement("BUTTON");
-var t3 = document.createTextNode("Species 3 Visibility");
+var t3 = document.createTextNode("Unknown");
 species3Btn.appendChild(t3);
 hiddenList.appendChild(species3Btn);
+var sp3btn = hiddenList.childNodes[7];
+sp3btn.id = "btn3";
 //add the event listener
 species3Btn.addEventListener("click", function(){changeVisible(2);});
 

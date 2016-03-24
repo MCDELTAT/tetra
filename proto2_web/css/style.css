@@ -91,3 +91,15 @@ canvas {
 .hidden {
 	display: none !important;
 }
+
+#btn1 {
+	color: rgba(132, 219, 252, 1.0);
+}
+
+#btn2 {
+	color: #fa515f;
+}
+
+#btn3 {
+	color: #6bf35c;
+}
