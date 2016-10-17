@@ -1,15 +1,13 @@
 //scene and camera
-var cameraControls;
-var group;
+var group, controls, container;
 var scene = new THREE.Scene(); 
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-var cameraControls;
-var clock = new THREE.Clock();
+var camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1, 1000);
 
 //set up the renderer
-var renderer = new THREE.WebGLRenderer();
+var renderer = new THREE.WebGLRenderer( { antialias: false } );
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+container = document.getElementById( 'container' );
+container.appendChild( renderer.domElement );
 
 //set up the cube, apply face visibility to half of the faces
 var geometry = new THREE.CubeGeometry(50,50,50);
@@ -61,16 +59,13 @@ var materials = [
 
     scene.add(graph);
 
-//add trackball controls to the scene.
-cameraControls = new THREE.TrackballControls(camera, renderer.domElement);
-cameraControls.minDistance = 10.5;
-cameraControls.maxDistance = 135.0;
+//add orbit controls to the scene.
+controls = new THREE.OrbitControls( camera );
+controls.addEventListener( 'change', render );
+
 camera.position.z = 110.5;
 camera.position.x = 110.5;
 camera.rotation.y = 0.529269912; //PI/8
-cameraControls.noPan = true;
-
-cameraControls.staticMoving = false;
 
 function scale(x, y ,z){
   if(x >= y && x >= z){
@@ -95,58 +90,26 @@ function scale(x, y ,z){
   console.log("y=:",y);
   console.log("z=:",z);
   //cameraControls.minDistance = 110.5;
-  cameraControls.maxDistance *=x*2;
+  controls.maxDistance *=x*2;
   //camera.position.z =  z/7;
   camera.position.x *=x  ;
 }
-console.log(camera);
 
-//--> none of the camera reset code below works. If you console.log(camera) you
-//can see all properties at start. try resetting from that.
-//determine the default camera position so we can reset to it.
-var cameraDefaults = {
-	"aspect": 1.6801242236024845,
-	"zoom": 1,
-	"position": 0,
-	"rotation": 0,
-	"xPos": 48.5,
-	"yPos": 0,
-	"zPos": 48.5,
-	"xRot": 0,
-	"yRot": 0.7853981462831774,
-	"zRot": 0,
-	"xQuat": 0, //fill in the XQuats
-	"yQuat": camera.quaternion._y,
-	"zQuat": 0,
-	"wQuat": camera.quaternion._w
-};
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
 
-function setCameraDefaults (){
-	cameraDefaults.position = camera.position;
-	cameraDefaults.rotation = camera.rotation;
+  renderer.setSize( window.innerWidth, window.innerHeight );
+
+  render();
+  controls.reset();
 }
 
-
 function resetCamera(){
-console.log("inside reset camera ",cameraDefaults.position);
-    camera.aspect = 1.68;
-    camera.position.z = 110.5;
-    camera.position.x = 110.5;
-    camera.position.y = 0;
-    camera.rotation.x = 0;
-    camera.rotation.y = 0.7853981462831774; //PI/8
-    camera.rotation.z = 0;
-    //camera.position = 0;
-    //camera.rotation = 0;
-    camera.quaternion._x = 0;
-    camera.quaternion._y = 0;
-    camera.quaternion._z = 0;
-    /*camera.position = cameraDefaults.position;
-    camera.rotation = cameraDefaults.rotation;
-    camera.quaternion._x = cameraDefaults.xQuat;
-    camera.quaternion._y = cameraDefaults.yQuat;
-    camera.quaternion._z = cameraDefaults.zQuat;
-    camera.quaternion._w = cameraDefaults.wQuat;*/
+  controls.reset();
+  camera.position.z = 110.5;
+  camera.position.x = 110.5;
+  camera.rotation.y = 0.529269912; //PI/8
 }
 
 //function to generate spheres at coordinates
@@ -157,11 +120,11 @@ var speciesMat1 = new THREE.MeshBasicMaterial({color: 0x84dbfc});
 var speciesMat2 = new THREE.MeshBasicMaterial({color: 0xfa515f});
 var speciesMat3 = new THREE.MeshBasicMaterial({color: 0x6bf35c});
 var speciesMaterials = [speciesMat1,speciesMat2,speciesMat3];
-var pointsStartIndex = 4;
+var pointsStartIndex = 8;
 var tempObject;
 function createSphere(species,xCoor,yCoor,zCoor){
 	scene.add(new THREE.Mesh(sphGeometry,speciesMaterials[species]));
-	tempObject = scene.getObjectById(pointsStartIndex,true);
+	tempObject = scene.getObjectById( pointsStartIndex );
 	tempObject.position.set(xCoor/10,yCoor/10,zCoor/10);
 	pointsStartIndex++; //increment the var so next point can be id'ed correctly
 }
@@ -271,22 +234,14 @@ camReset.addEventListener("click", resetCamera);
 
 //THREE JS internal function to request the delta changes to frame and render.
 function render() {
-	requestAnimationFrame(render);
-	renderer.render(scene,camera);
+	renderer.render( scene, camera );
 	//camera.position.y += .001;
 }
 
 //THREE JS internal function to draw the frame changes to WebGL context.
 function animate() {
-    
-        var delta = clock.getDelta();
-
         requestAnimationFrame(animate);
-        
-        cameraControls.update(delta);
-        
-        renderer.render(scene, camera);
-        
+        controls.update();       
 }
 
 render();

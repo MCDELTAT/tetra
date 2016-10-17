@@ -30,15 +30,15 @@
         <div class="hidden-list hidden pull-right" id="spList">
         </div>
 
+        <div id="container"></div>
+
         <script src="js/papaparse.min.js"></script>
         <script src="js/three.min.js"></script>
-        <script src="js/TrackballControls.js"> </script>
+        <script src="js/OrbitControls.js"> </script>
         <script src="js/JSONLoader.js"> </script>
         <script src="js/parser.js"></script>
         <script src="js/scatter_plot.js"></script>
         <script>
-        window.onload = setCameraDefaults;
-        console.log("Inside html root: ",cameraDefaults);
         	var data; //to store raw parsed data
             var visible = false; //visibility state of list
             var minMax
