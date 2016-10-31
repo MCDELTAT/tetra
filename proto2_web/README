@@ -24,3 +24,8 @@ Done:
 1) Basic Graph Set-Up
 3) Get input from the CSV file
 4) Rebuild web-view to use onShowFileChooser to select files.
+
+Average Load Time for GBSsed_and_Nov_chopped_for_TNF(3.1MB):
+Run 1: 16.30s
+Run 2: 15.89s
+Run 3: 15.90s
