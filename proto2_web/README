@@ -1,20 +1,31 @@
-Prototype 2 of the Tetranucleotide Frequency Viewer
-CSUSB, Spring 2016
+Tetranucleotide Frequency Viewer
+Continued from CSE455 at CSUSB, Spring 2016
 
 Uses three.js as the main WebGL implementation library
 
-To run, first run "npm install", then use "node <file>"
+To run the app, you can simply open the index.html in Firefox (allows CORS by default)
+Otherwise you will have to run a development server. If you have python, simply run:
+'python3 -m http.server'
+in the same directory as the index.html file. 
+
+As soon as a stable experimental build is reached, the files will be hosted online and the above steps can be skipped.
 
 To-Do:
-1) Figure out the three.js grid system, things aren't quite to scale.
-2) Set up grid system on cube faces
-
+1) General Cleanup. ES6 Best practices of moving global declaration to init() function. (Deadline-Oct. 19)
+2) Reconfigure hiding layers (v81 uses new id system) --> Abstract. (Deadline-Oct. 20)
+3) Figure out the three.js grid system, things aren't quite to scale. (Dealine-Oct. 20)
+4) Axis labels (Deadline-Oct.24)
+5) Get the visibility buttons to generate on their own. --> Abstract. (Deadline-Oct. 27)
+6) CSS Stuff. Bar across top with 3 buttons: open file, layer select panel, camera reset. (almost done)
+7) Pregenerate 20 colors for use on species. (Deadline-Oct 31)
+8) Hide graph walls when camera is obstructed (water demo).
 
 Done: 
 1) Basic Graph Set-Up
-2) Toggle Layers On and Off
-
 3) Get input from the CSV file
+4) Rebuild web-view to use onShowFileChooser to select files.
 
-
-
+Average Load Time for GBSsed_and_Nov_chopped_for_TNF(3.1MB):
+Run 1: 16.30s
+Run 2: 15.89s
+Run 3: 15.90s

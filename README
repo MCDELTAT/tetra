@@ -2,10 +2,13 @@ Github Repo for CSE455 Project Tetranucleotide Viewer
 
 Build + Run Instructions:
 
+To build the app, simply open the Tetra directory in Android Studio. Hit Build+Run.
+
 It is recommended to have a file browser installed on the system, prefferably one without ads.  
 
 The data is a propreitary formatted CSV by Dr. Dodsworth, these are found in the DOCS/ directory of the repo.
 
 As per the SPMP, all input files are stored locally, so save these input files on an SD card.
+
 
 

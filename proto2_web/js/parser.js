@@ -1,5 +1,6 @@
 var lineCount;
 
+//Function to verify my file is not corrupt
 function verifyObject(){
 	lineCount = data.data.length;
 	console.log("Line count is: ",lineCount);
@@ -15,6 +16,7 @@ var graphMaxima = {
 };
 
 //get the maxima/minima of each axis (dim)
+//No input paramters, no returns. Modifies graphMaxima[]
 function getMinMax() {
 	for (var i=0; i<lineCount; i++){
 		//if the current lines value is less than the min, it is the new min.
@@ -40,7 +42,7 @@ function getMinMax() {
 			graphMaxima["zMin"] = data.data[i].dim3;
 			//console.log("New Z-Minimum: ", graphMaxima["zMin"]);
 		}
-		if (data.data[i].dim3 < graphMaxima["zMax"]){
+		if (data.data[i].dim3 > graphMaxima["zMax"]){
 			graphMaxima["zMax"] = data.data[i].dim3;
 			//console.log("New Z-Minimum: ", graphMaxima["zMax"]);
 		}
@@ -68,7 +70,6 @@ function createSpeciesObjects(){
 			speciesName1 = data.data[i].Organism; 
 			speciesArray.push(new Object())
 			speciesCount++; //start the count at zero.
-			console.log(typeof speciesName1);
 		}
 		//speciesArray[speciesCount] is object, as above, add data entry to that species object.
 		speciesArray[speciesCount][i] = data.data[i];
